@@ -485,7 +485,8 @@ footer {
   background: var(--bg-elevated);
   padding: 0.52em;
   border-radius: 5px;
-  flex: 1; /* takes up all available space */
+  flex: 1 0 auto; /* takes up all available space */
+  max-width: 75%;
 }
 
 .dh-right {
@@ -493,6 +494,10 @@ footer {
   max-width: 400px;
   position: relative;
   font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
+  flex: 0 1 auto;
+  &:has(img) {
+    min-width: 20%; /* needed to keep image from disappearing */
+  }
 }
 
 .mobile .dh-left {
