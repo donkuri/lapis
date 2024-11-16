@@ -471,11 +471,13 @@ footer {
 
 /* Definition Header */
 .def-header {
+  --header-default-max-width: 820px;
+  --header-max-width: max(var(--max-width), var(--header-default-max-width));
   display: flex;
   font-size: 30px;
   justify-content: center;
   align-items: center;
-  max-width: 820px;
+  max-width: var(--header-max-width);
   margin: auto;
   position: relative;
 }
@@ -499,6 +501,14 @@ footer {
     min-width: 20%; /* needed to keep image from disappearing */
   }
 }
+
+/* empty flexible div that :
+  keep default max-width when expression fits
+  allow (expression + picture) to grow as much as max-width */
+  .dh-shrinkable {
+    /* div by 2 because there's two: one on both sides */
+    flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
+  }
 
 .mobile .dh-left {
   background: none;
