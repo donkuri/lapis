@@ -492,7 +492,7 @@ footer {
 }
 
 .dh-right {
-  padding-left: 20px;
+  padding-left: min(1.5vw, 20px);
   max-width: 400px;
   position: relative;
   font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
