@@ -512,8 +512,8 @@ footer {
 }
 
 /* dynamic margins that :
-  allow the header to grow as wide as --max-width
-  keep the header at default width if it doesn't need to grow 
+  allow def-header to grow as wide as --max-width
+  keep def-header at default width if it doesn't need to grow 
   don't have any effect if --max-width isn't wider than default */
 .dh-shrinkable {
   /* divide by 2 because there are two: one on both sides */
