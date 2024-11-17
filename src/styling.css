@@ -473,7 +473,7 @@ footer {
 .def-header {
   --header-default-max-width: 820px;
   --header-max-width: max(var(--max-width), var(--header-default-max-width));
-  --header-word-growth-limit: 80%;
+  --header-word-growth-limit: 80%; /* word to picture ratio */
   display: flex;
   font-size: 30px;
   justify-content: center;
@@ -506,11 +506,12 @@ footer {
   }
 }
 
-/* empty flexible div that :
-  keep default max-width when expression fits
-  allow (expression + picture) to grow as much as max-width */
+/* dynamic margins that :
+  allow the header to grow as wide as --max-width
+  keep the header at default width if it doesn't need to grow 
+  don't have any effect if --max-width isn't wider than default */
 .dh-shrinkable {
-  /* div by 2 because there's two: one on both sides */
+  /* divide by 2 because there are two: one on both sides */
   flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
 }
 
