@@ -42,7 +42,7 @@
   --dark-mode-image-brightness: 80%;
   --light-mode-tooltip-hover-color: rgb(256, 256, 256, 0.9);
   --dark-mode-tooltip-hover-color: rgba(0, 0, 0, 0.9);
-  --max-width: 800px;
+  --max-card-width: 800px;
 
   font-size: var(--main-font-size);
 }
@@ -50,6 +50,7 @@
 .card {
   background-color: var(--bg-color) !important;
   color: var(--fg-color) !important;
+  --max-width: min(100vw - 20px, var(--max-card-width));
 }
 
 .card.nightMode {
@@ -518,6 +519,7 @@ footer {
 .dh-shrinkable {
   /* divide by 2 because there are two: one on both sides */
   flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
+  max-width: 25%;
 }
 
 .mobile .dh-left {
