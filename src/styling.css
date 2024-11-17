@@ -473,6 +473,7 @@ footer {
 .def-header {
   --header-default-max-width: 820px;
   --header-max-width: max(var(--max-width), var(--header-default-max-width));
+  --header-word-growth-limit: 80%;
   display: flex;
   font-size: 30px;
   justify-content: center;
@@ -488,7 +489,10 @@ footer {
   padding: 0.52em;
   border-radius: 5px;
   flex: 1 0 auto; /* takes up all available space */
-  max-width: 75%;
+  &:has(+ .dh-right img) {
+    /* limit growth when image is present */
+    max-width: calc(var(--header-word-growth-limit) - 20px);
+  }
 }
 
 .dh-right {
@@ -498,17 +502,17 @@ footer {
   font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
   flex: 0 1 auto;
   &:has(img) {
-    min-width: 20%; /* needed to keep image from disappearing */
+    min-width: calc(100% - var(--header-word-growth-limit));
   }
 }
 
 /* empty flexible div that :
   keep default max-width when expression fits
   allow (expression + picture) to grow as much as max-width */
-  .dh-shrinkable {
-    /* div by 2 because there's two: one on both sides */
-    flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
-  }
+.dh-shrinkable {
+  /* div by 2 because there's two: one on both sides */
+  flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
+}
 
 .mobile .dh-left {
   background: none;
