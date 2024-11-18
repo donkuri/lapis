@@ -493,23 +493,24 @@ footer {
   background: var(--bg-elevated);
   padding: 0.52em;
   border-radius: 5px;
-  flex: 1 0 auto; /* takes up all available space */
+  flex: 1; /* takes up all available space */
   &:has(+ .dh-right img) {
-    /* limit growth when image is present */
+    flex: 1 0 auto;
     max-width: var(--max-word-to-picture-ratio);
     min-width: 40%; /* for consistency */
   }
 }
 
 .dh-right {
+  --picture-max-width: calc(var(--header-default-max-width) / 2);
   box-sizing: border-box;
   padding-left: min(1.5vw, 20px);
-  max-width: 400px;
+  max-width: var(--picture-max-width);
   position: relative;
   font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
   flex: 0 1 auto;
   &:has(img) {
-    min-width: calc(100% - var(--max-word-to-picture-ratio));
+    min-width: min(var(--picture-max-width), calc(100% - var(--max-word-to-picture-ratio)));
   }
 }
 
