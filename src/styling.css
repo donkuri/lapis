@@ -111,7 +111,6 @@ html.mobile {
   --back-sentence-font-size: var(--mobile-back-sentence-font-size);
   --hint-font-size: var(--mobile-hint-font-size);
   --info-font-size: var(--mobile-info-font-size);
-  --max-width: 100vw;
 }
 
 #qa {
@@ -497,11 +496,13 @@ footer {
   flex: 1 0 auto; /* takes up all available space */
   &:has(+ .dh-right img) {
     /* limit growth when image is present */
-    max-width: calc(var(--max-word-to-picture-ratio) - min(1.5vw, 20px));
+    max-width: var(--max-word-to-picture-ratio);
+    min-width: 40%; /* for consistency */
   }
 }
 
 .dh-right {
+  box-sizing: border-box;
   padding-left: min(1.5vw, 20px);
   max-width: 400px;
   position: relative;
