@@ -487,11 +487,20 @@
         document.head.appendChild(style);
     }
   }
+  
+  // Set info width to expression box's width
+  // Prevents pitch patterns to further grow the expression box
+  function freezeInfoWidth() {
+    var info = document.querySelector('.info');
+    var infoWidth = info.offsetWidth;
+    info.style.maxWidth = `${infoWidth}px`;
+  }
 
   // Initialize all functions!!!
   function initialize() {
     tweakHTML();
     paintTargetWord();
+    freezeInfoWidth();
     constructPitch();
     showCorrectDef();
     setUpDefToggle();
