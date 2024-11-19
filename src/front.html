@@ -10,8 +10,15 @@
   <!------- Sentence card --------->
   {{#IsSentenceCard}}
     <div lang="ja" class="front-sentence">
+      {{#FuriganaOnHover}}
+      {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+      {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+      {{/FuriganaOnHover}}
+
+      {{^FuriganaOnHover}}
       {{#SentenceFurigana}} {{kanji:SentenceFurigana}} {{/SentenceFurigana}}
       {{^SentenceFurigana}} {{kanji:Sentence}} {{/SentenceFurigana}}
+      {{/FuriganaOnHover}}
     </div>
   {{/IsSentenceCard}}
 
@@ -19,8 +26,15 @@
   {{#IsHintCard}}
     <div lang="ja" class="front-vocab">{{Expression}}</div>
     <div id="hint">
+      {{#FuriganaOnHover}}
+      {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+      {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+      {{/FuriganaOnHover}}
+
+      {{^FuriganaOnHover}}
       {{#SentenceFurigana}} {{kanji:SentenceFurigana}} {{/SentenceFurigana}}
       {{^SentenceFurigana}} {{kanji:Sentence}} {{/SentenceFurigana}}
+      {{/FuriganaOnHover}}
     </div>
   {{/IsHintCard}}
 

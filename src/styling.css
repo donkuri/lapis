@@ -156,6 +156,12 @@ html.mobile {
   font-size: var(--sentence-font-size);
   display: inline-block;
 }
+.front-sentence b > ruby rt {
+  opacity: 0;
+}
+.front-sentence b > ruby:hover rt {
+  opacity: 1;
+}
 #hint {
   font-size: var(--hint-font-size);
   margin-top: -5px;
@@ -418,7 +424,7 @@ header {
 }
 
 /* Back sentence */
-.sentence {
+.back-sentence {
   font-size: var(--back-sentence-font-size);
   display: inline-block;
   width: calc(100% - 20px);
@@ -427,7 +433,7 @@ header {
 .sentence-mobile {
   display: none;
 }
-.mobile .sentence {
+.mobile .back-sentence {
   display: none;
 }
 .mobile .sentence-mobile {
@@ -541,7 +547,10 @@ footer {
 .show-furigana > ruby rt {
   opacity: 1;
 }
-ruby rt {
+.back-sentence > ruby rt {
+  opacity: 1;
+}
+.front-sentence > ruby rt {
   user-select: none;
   opacity: 0;
 }
