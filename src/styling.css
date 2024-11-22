@@ -237,6 +237,7 @@ header {
   font-family: var(--font-sans);
   font-size: var(--info-font-size);
   color: var(--fg-color);
+  margin: auto;
 }
 
 .mobile .info {
