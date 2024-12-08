@@ -20,10 +20,11 @@
 </header>
 
 <main lang="ja">
-  <div class="template">
+  <div class="template{{#Picture}} has-picture{{/Picture}}">
 
     <!-- The first row (vocab box+picture) -->
     <div class="def-header">
+      <div class="dh-shrinkable"></div>
       <div class="dh-left">
         <div class="show-furigana vocab">
           {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
@@ -54,6 +55,7 @@
           <div class="image tappable {{Tags}}">{{Picture}}</div>
         {{/Picture}}
       </div>
+      <div class="dh-shrinkable"></div>
     </div>
 
     <br>
@@ -503,11 +505,20 @@
         firstList.appendChild(primaryDicts[idx]);
     }
   }
+  
+  // Set info width to expression box's width
+  // Prevents pitch patterns to further grow the expression box
+  function freezeInfoWidth() {
+    var info = document.querySelector('.info');
+    var infoWidth = info.offsetWidth;
+    info.style.maxWidth = `${infoWidth}px`;
+  }
 
   // Initialize all functions!!!
   function initialize() {
     tweakHTML();
     paintTargetWord();
+    freezeInfoWidth();
     constructPitch();
     showCorrectDef();
     setUpDefToggle();
