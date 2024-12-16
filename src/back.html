@@ -66,9 +66,9 @@
   <div class="def-info-container"><div class="def-info"></div></div>
     <blockquote class="main-def def-blockquote">
       <div class="definition">
-        {{#SelectionText}}<div id="selection" class="hidden" data-display-name="Text Selection">{{SelectionText}}</div>{{/SelectionText}}
-        <div id="primary" class="hidden" data-display-name="Primary Definition">{{MainDefinition}}</div>
-        <div id="glossaries" class="hidden" data-display-name="Glossaries">{{Glossary}}</div>
+        {{#SelectionText}}<div id="selection" data-display-name="Text Selection">{{SelectionText}}</div>{{/SelectionText}}
+        {{#MainDefinition}}<div id="primary" data-display-name="Primary Definition">{{MainDefinition}}</div>{{/MainDefinition}}
+        <div id="glossaries" data-display-name="Glossaries">{{Glossary}}</div>
       </div>
     </blockquote>
 
@@ -331,35 +331,82 @@
     return strippedContent === "" && content.match(/<\/?[^>]+(>|$)/g) !== null;
   }
 
-  function updateDefDisplay() {
-      console.log("hellooo");
-      const definitionContainer = document.querySelector(
-         ".main-def > .definition",
-      );
-      let n_children = definitionContainer.children.length;
-      if (n_children <= 1) return;
+  
+  function isPrimaryAndGlossEqual() {
+    const isJPMNConverted = document.querySelector("li[data-details]") !== null;
+    if (isJPMNConverted) return false;
+    // single dict formatting
+    const isSingleDict = document.querySelectorAll("#glossaries > div > ol").length === 0;
+    if (isSingleDict) {
+      const primary = document.querySelector("#primary > div:has(i)");
+      const glossaries = document.querySelector("#glossaries > div:has(i)");
+      return primary.innerHTML === glossaries.innerHTML;
+    }
+ 
+    // multiple dicts
+    const primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
+    const primaryDictsNames = Array.from(primaryDicts).map( li => li.getAttribute("data-dictionary") );
+    const glossariesDicts = document.querySelectorAll("#glossaries li[data-dictionary]");
+    const glossariesDictsNames = Array.from(glossariesDicts).map( li => li.getAttribute("data-dictionary") );
+    return glossariesDictsNames.every( li => primaryDictsNames.includes(li) );
+  }
 
-      const mainDefContainer = document.querySelector(".main-def");
-      let currentIndex = document.head.getAttribute("data-def-index");
-
-      currentIndex = currentIndex % n_children;
-      while (currentIndex < 0) currentIndex += n_children;
-
-      console.log(currentIndex)
-      let defToDisplay = definitionContainer.children[currentIndex]
-
-
-      for (let idx = 0; idx < n_children; idx++) {
-          definitionContainer.children[idx].classList.add("hidden");
+  // Removes Unnecessary definitions
+  function cleanDefinitions() {
+      const primary = document.getElementById("primary");
+      const glossaries = document.getElementById("glossaries");
+      if (primary && primary.innerText.trim() === "") {
+          primary.remove();
       }
-      defToDisplay.classList.remove("hidden");
+      if (glossaries && glossaries.innerText.trim() === "") {
+          glossaries.remove();
+      }
+      else if (primary && glossaries && isPrimaryAndGlossEqual()) {
+          glossaries.remove();
+      }
+  }
+
+  function updateDefDisplay() {
+      const definitions = document.querySelectorAll(
+        ".main-def > .definition > div"
+      );
+
+      let n_defs = definitions.length;
+      if (n_defs === 1) {
+        definitions[0].classList.remove("hidden");
+        return;
+      }
+      else if (n_defs < 1) return;
+
+      let currentIndex = document.head.getAttribute("data-def-index");
+      currentIndex = currentIndex % n_defs;
+      while (currentIndex < 0) currentIndex += n_defs;
+
+      for (let idx = 0; idx < n_defs; idx++) {
+          definitions[idx].classList.add("hidden");
+      }
+      definitions[currentIndex].classList.remove("hidden");
 
       const indexDisplay = document.querySelector(".def-info");
       indexDisplay.style.opacity = 1;
-      indexDisplay.innerText = `${defToDisplay.getAttribute("data-display-name")} ${currentIndex + 1}/${n_children}`;
+      indexDisplay.innerText = `${definitions[currentIndex].getAttribute("data-display-name")} \
+          ${currentIndex + 1}/${n_defs}
+      `;
   }
 
   function setUpDefToggle() {
+    document.head.setAttribute("data-def-index", 0);
+
+    cleanDefinitions();
+
+    // hide all but first def
+    let definitions = document.querySelectorAll(".main-def > .definition > div");
+    Array.from(definitions).slice(1).forEach( def => {
+        def.classList.add("hidden");
+    });
+    // nothing if no more than 1 def
+    if (definitions.length < 2) return;
+
     let mainDefContainer = document.querySelector(".main-def");
 
     const leftEdge = document.createElement("div");
@@ -370,8 +417,6 @@
     rightEdge.classList.add("tappable");
     mainDefContainer.appendChild(leftEdge);
     mainDefContainer.appendChild(rightEdge);
-
-    document.head.setAttribute("data-def-index", 0);
 
     const changeIndex = (value) => {
       // sync index
@@ -384,8 +429,8 @@
     leftEdge.addEventListener("click", (e) => changeIndex(-1));
     rightEdge.addEventListener("click", (e) => changeIndex(1));
 
-    // Add listener only once at session start
-    if (document.head.classList.contains("has-listener") ) { return; }
+    // Add key listener only once at session start
+    if (document.head.classList.contains("has-listener")) return;
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") changeIndex(-1);
       else if (e.key === "ArrowRight") changeIndex(1);
@@ -474,12 +519,9 @@
   // Hides the dictionary user selected in MainDefinition in Glossary field, if any
   function hideCorrectDefinition() {
     // Do nothing if css rule already exists
-    if (document.querySelector("blockquote.main-def style")) {
-      return;
-    }
+    if (document.querySelector("blockquote.main-def style")) return;
 
     let primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
-    console.log(primaryDicts);
     if (primaryDicts.length === 0) return;
 
     let style = document.createElement('style');
@@ -495,6 +537,7 @@
     defContainer.appendChild(style);
   }
 
+  // Moves Primary Dicts into the same list
   function movePrimaryDicts() {
     let primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
     let firstList = document.querySelector("#primary .yomitan-glossary > ol:has( li[data-dictionary])");
@@ -515,7 +558,6 @@
     setDHHeight();
     hideCorrectDefinition();
     movePrimaryDicts();
-    updateDefDisplay();
   }
 
   initialize();
