@@ -340,7 +340,7 @@
       if (isSingleDict) {
           const primaryDictName = document.querySelector("#primary > div > i");
           const glossariesDictName = document.querySelector("#glossaries > div > i");
-          return primaryDictName.innerText === glossariesDictName.innerText;
+          return primaryDictName.textContent === glossariesDictName.textContent;
       }
 
       // multiple dicts
@@ -360,21 +360,21 @@
       const glossaries = document.getElementById("glossaries");
       if (primary && primary.textContent === "" ) {
           console.log("primary empty");
-          primary.classList.add("empty");
+          primary.remove()
       }
       if (glossaries && glossaries.textContent === "") {
           console.log("gloss empty");
-          glossaries.classList.add("empty");
+          glossaries.remove()
       }
       else if (primary && glossaries && isPrimaryEqualToGloss()) {
           console.log("gloss = primary");
-          glossaries.classList.add("empty");
+          glossaries.remove()
       }
   }
 
   function updateDefDisplay() {
       const definitions = document.querySelectorAll(
-        ".main-def > .definition > div:not(.empty)"
+        ".main-def > .definition > div"
       );
 
       let n_defs = definitions.length;
@@ -400,13 +400,12 @@
 
   function setUpDefToggle() {
     document.head.setAttribute("data-def-index", 0);
-
     cleanUpDefinitions();
 
-    // hide all but first def
-    let definitions = document.querySelectorAll(".main-def > .definition > div:not(.empty)");
+    // hide all but first definition
+    let definitions = document.querySelectorAll(".main-def > .definition > div");
     Array.from(definitions).slice(1).forEach( def => { def.classList.add("hidden"); });
-    // nothing if no more than 1 def
+    // no need for toggling on less than 2 definitions
     if (definitions.length < 2) return;
 
     let mainDefContainer = document.querySelector(".main-def");
@@ -421,7 +420,7 @@
     mainDefContainer.appendChild(rightEdge);
 
     const changeIndex = (value) => {
-      // sync index
+      // sync index between clicks and arrowkeys
       index = Number(document.head.getAttribute("data-def-index"));
       index += value;
       document.head.setAttribute("data-def-index", index);
@@ -431,7 +430,7 @@
     leftEdge.addEventListener("click", (e) => changeIndex(-1));
     rightEdge.addEventListener("click", (e) => changeIndex(1));
 
-    // Add key listener only once at session start
+    // Add key listener only once per session
     if (document.head.classList.contains("has-listener")) return;
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") changeIndex(-1);
