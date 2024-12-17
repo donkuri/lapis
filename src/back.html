@@ -378,10 +378,8 @@
       );
 
       let n_defs = definitions.length;
-      if (n_defs === 1) {
-        definitions[0].classList.remove("hidden");
-      }
-      else if (n_defs <= 1) return;
+      if (n_defs === 1) definitions[0].classList.remove("hidden");
+      if (n_defs <= 1) return;
 
       let currentIndex = document.head.getAttribute("data-def-index");
       currentIndex = currentIndex % n_defs;
