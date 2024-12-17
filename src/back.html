@@ -331,52 +331,57 @@
     return strippedContent === "" && content.match(/<\/?[^>]+(>|$)/g) !== null;
   }
 
-  
-  function isPrimaryAndGlossEqual() {
-    const isJPMNConverted = document.querySelector("li[data-details]") !== null;
-    if (isJPMNConverted) return false;
-    // single dict formatting
-    const isSingleDict = document.querySelectorAll("#glossaries > div > ol").length === 0;
-    if (isSingleDict) {
-      const primary = document.querySelector("#primary > div:has(i)");
-      const glossaries = document.querySelector("#glossaries > div:has(i)");
-      return primary.innerHTML === glossaries.innerHTML;
-    }
- 
-    // multiple dicts
-    const primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
-    const primaryDictsNames = Array.from(primaryDicts).map( li => li.getAttribute("data-dictionary") );
-    const glossariesDicts = document.querySelectorAll("#glossaries li[data-dictionary]");
-    const glossariesDictsNames = Array.from(glossariesDicts).map( li => li.getAttribute("data-dictionary") );
-    return glossariesDictsNames.every( li => primaryDictsNames.includes(li) );
+
+  function isPrimaryEqualToGloss() {
+      const isJPMNConverted = document.querySelector("li[data-details]");
+      if (isJPMNConverted) return false;
+      // single dict formatting
+      const isSingleDict = document.querySelectorAll("#glossaries > div > ol").length === 0;
+      if (isSingleDict) {
+          const primaryDictName = document.querySelector("#primary > div > i");
+          const glossariesDictName = document.querySelector("#glossaries > div > i");
+          return primaryDictName.innerText === glossariesDictName.innerText;
+      }
+
+      // multiple dicts
+      const primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
+      const glossariesDicts = document.querySelectorAll("#glossaries li[data-dictionary]");
+      return primaryDicts.length === glossariesDicts.length
+      /*
+      const primaryDictsNames = Array.from(primaryDicts).map( li => li.getAttribute("data-dictionary") );
+      const glossariesDictsNames = Array.from(glossariesDicts).map( li => li.getAttribute("data-dictionary") );
+      return glossariesDictsNames.every( li => primaryDictsNames.includes(li) ); 
+      */
   }
 
   // Removes Unnecessary definitions
-  function cleanDefinitions() {
+  function cleanUpDefinitions() {
       const primary = document.getElementById("primary");
       const glossaries = document.getElementById("glossaries");
-      if (primary && primary.innerText.trim() === "") {
-          primary.remove();
+      if (primary && primary.textContent === "" ) {
+          console.log("primary empty");
+          primary.classList.add("empty");
       }
-      if (glossaries && glossaries.innerText.trim() === "") {
-          glossaries.remove();
+      if (glossaries && glossaries.textContent === "") {
+          console.log("gloss empty");
+          glossaries.classList.add("empty");
       }
-      else if (primary && glossaries && isPrimaryAndGlossEqual()) {
-          glossaries.remove();
+      else if (primary && glossaries && isPrimaryEqualToGloss()) {
+          console.log("gloss = primary");
+          glossaries.classList.add("empty");
       }
   }
 
   function updateDefDisplay() {
       const definitions = document.querySelectorAll(
-        ".main-def > .definition > div"
+        ".main-def > .definition > div:not(.empty)"
       );
 
       let n_defs = definitions.length;
       if (n_defs === 1) {
         definitions[0].classList.remove("hidden");
-        return;
       }
-      else if (n_defs < 1) return;
+      else if (n_defs <= 1) return;
 
       let currentIndex = document.head.getAttribute("data-def-index");
       currentIndex = currentIndex % n_defs;
@@ -387,23 +392,20 @@
       }
       definitions[currentIndex].classList.remove("hidden");
 
+      const defDisplayName = definitions[currentIndex].getAttribute("data-display-name")
       const indexDisplay = document.querySelector(".def-info");
       indexDisplay.style.opacity = 1;
-      indexDisplay.innerText = `${definitions[currentIndex].getAttribute("data-display-name")} \
-          ${currentIndex + 1}/${n_defs}
-      `;
+      indexDisplay.innerText = `${defDisplayName} ${currentIndex + 1}/${n_defs}`;
   }
 
   function setUpDefToggle() {
     document.head.setAttribute("data-def-index", 0);
 
-    cleanDefinitions();
+    cleanUpDefinitions();
 
     // hide all but first def
-    let definitions = document.querySelectorAll(".main-def > .definition > div");
-    Array.from(definitions).slice(1).forEach( def => {
-        def.classList.add("hidden");
-    });
+    let definitions = document.querySelectorAll(".main-def > .definition > div:not(.empty)");
+    Array.from(definitions).slice(1).forEach( def => { def.classList.add("hidden"); });
     // nothing if no more than 1 def
     if (definitions.length < 2) return;
 
