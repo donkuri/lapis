@@ -333,13 +333,19 @@
 
 
   function isPrimaryEqualToGloss() {
-      const isJPMNConverted = document.querySelector("li[data-details]");
+      const isJPMNConverted = document.querySelector(".definition li[data-details]");
       if (isJPMNConverted) return false;
       // single dict formatting
       const isSingleDict = document.querySelectorAll("#glossaries > div > ol").length === 0;
       if (isSingleDict) {
           const primaryDictName = document.querySelector("#primary > div > i");
           const glossariesDictName = document.querySelector("#glossaries > div > i");
+          // {glossary-brief} and {glossary-no-dictionary} formatting
+          if (!primaryDictName || !glossariesDictName) {
+              const primaryDict = document.querySelector("#primary > div > span");
+              const glossariesDict = document.querySelector("#glossaries > div > span");
+              return primaryDict.innerHTML === glossariesDict.innerHTML
+          }
           return primaryDictName.textContent === glossariesDictName.textContent;
       }
 
