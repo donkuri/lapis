@@ -733,6 +733,10 @@ li[data-dictionary^="JMdict"] i {
     max-width: 300px !important;
 }
 
+.definition .hidden {
+    display: none
+}
+
 /* backwards compatibility code for JPMN definitions */
 
 li[data-details="JMdict (English)"] .dict-group__glossary>ul,
