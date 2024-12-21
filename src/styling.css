@@ -1,518 +1,557 @@
 :root {
-  /* Color theme */
-  --light-mode-bg-color: #fffaf0;
-  --light-mode-fg-color: #333333;
+    /* Color theme */
+    --light-mode-bg-color: #fffaf0;
+    --light-mode-fg-color: #333333;
 
-  /* Pitch colors */
-  --dark-mode-heiban: #39bae6;
-  --dark-mode-atamadaka: #ec464f;
-  --dark-mode-nakadaka: #ff8f40;
-  --dark-mode-odaka: #6cbf43;
-  --dark-mode-kifuku: #af85f4;
-  --light-mode-heiban: #1aa0ce;
-  --light-mode-atamadaka: #e92a35;
-  --light-mode-nakadaka: #ff6b03;
-  --light-mode-odaka: #61ad3b;
-  --light-mode-kifuku: #7e53c4;
+    /* Pitch colors */
+    --dark-mode-heiban: #39bae6;
+    --dark-mode-atamadaka: #ec464f;
+    --dark-mode-nakadaka: #ff8f40;
+    --dark-mode-odaka: #6cbf43;
+    --dark-mode-kifuku: #af85f4;
+    --light-mode-heiban: #1aa0ce;
+    --light-mode-atamadaka: #e92a35;
+    --light-mode-nakadaka: #ff6b03;
+    --light-mode-odaka: #61ad3b;
+    --light-mode-kifuku: #7e53c4;
 
-  /* PC Font sizes */
-  --pc-main-font-size: 16px;
-  --pc-main-def-size: 20px;
-  --pc-vocab-font-size: 85px;
-  --pc-back-vocab-font-size: 60px;
-  --pc-sentence-font-size: 52px;
-  --pc-back-sentence-font-size: 35px;
-  --pc-hint-font-size: 38px;
-  --pc-info-font-size: 23px;
+    /* Bold color */
+    --light-mode-bold: #999999;
+    --dark-mode-bold: #7d8590;
 
-  /* Mobile font sizes */
-  --mobile-main-font-size: 16px;
-  --mobile-main-def-size: 16px;
-  --mobile-vocab-font-size: 70px;
-  --mobile-back-vocab-font-size: 32px;
-  --mobile-sentence-font-size: 38px;
-  --mobile-back-sentence-font-size: 24px;
-  --mobile-hint-font-size: 24px;
-  --mobile-info-font-size: 16px;
+    /* PC Font sizes */
+    --pc-main-font-size: 16px;
+    --pc-main-def-size: 20px;
+    --pc-vocab-font-size: 85px;
+    --pc-back-vocab-font-size: 60px;
+    --pc-sentence-font-size: 52px;
+    --pc-back-sentence-font-size: 35px;
+    --pc-hint-font-size: 38px;
+    --pc-info-font-size: 23px;
 
-  /* Miscellaneous */
-  --font-serif: "Georgia", "Liberation Serif", "Times New Roman", "Hiragino Mincho ProN", "Noto Serif CJK JP", "Yu Mincho", HanaMinA, HanaMinB, serif;
-  --font-sans: "SF Pro Display", "Liberation Sans", "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", "Meiryo", HanaMinA, HanaMinB, sans-serif;
-  --light-mode-image-brightness: 85%;
-  --dark-mode-image-brightness: 80%;
-  --light-mode-tooltip-hover-color: rgb(256, 256, 256, 0.9);
-  --dark-mode-tooltip-hover-color: rgba(0, 0, 0, 0.9);
-  --max-card-width: 800px;
+    /* Mobile font sizes */
+    --mobile-main-font-size: 16px;
+    --mobile-main-def-size: 16px;
+    --mobile-vocab-font-size: 70px;
+    --mobile-back-vocab-font-size: 32px;
+    --mobile-sentence-font-size: 38px;
+    --mobile-back-sentence-font-size: 24px;
+    --mobile-hint-font-size: 24px;
+    --mobile-info-font-size: 16px;
 
-  font-size: var(--main-font-size);
+    /* Miscellaneous */
+    --font-serif: "Georgia", "Liberation Serif", "Times New Roman", "Hiragino Mincho ProN", "Noto Serif CJK JP", "Yu Mincho", HanaMinA, HanaMinB, serif;
+    --font-sans: "SF Pro Display", "Liberation Sans", "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", "Meiryo", HanaMinA, HanaMinB, sans-serif;
+    --light-mode-image-brightness: 85%;
+    --dark-mode-image-brightness: 80%;
+    --light-mode-tooltip-hover-color: rgb(256, 256, 256, 0.9);
+    --dark-mode-tooltip-hover-color: rgba(0, 0, 0, 0.9);
+    --max-card-width: 800px;
+
+    font-size: var(--main-font-size);
 }
 
 .card {
-  background-color: var(--bg-color) !important;
-  color: var(--fg-color) !important;
-  --max-width: min(100vw - 20px, var(--max-card-width));
+    background-color: var(--bg-color) !important;
+    color: var(--fg-color) !important;
+    --max-width: min(100vw - 20px, var(--max-card-width));
 }
 
 .card.nightMode {
-  --bg-color: var(--canvas, #2c2c2c);
-  --fg-color: var(--fg, #fcfcfc);
-  --heiban: var(--dark-mode-heiban, initial);
-  --atamadaka: var(--dark-mode-atamadaka, initial);
-  --nakadaka: var(--dark-mode-nakadaka, initial);
-  --odaka: var(--dark-mode-odaka, initial);
-  --kifuku: var(--dark-mode-kifuku, initial);
+    --bg-color: var(--canvas, #2c2c2c);
+    --fg-color: var(--fg, #fcfcfc);
+    --heiban: var(--dark-mode-heiban, initial);
+    --atamadaka: var(--dark-mode-atamadaka, initial);
+    --nakadaka: var(--dark-mode-nakadaka, initial);
+    --odaka: var(--dark-mode-odaka, initial);
+    --kifuku: var(--dark-mode-kifuku, initial);
 
-  --bg-elevated: rgba(0, 0, 0, 0.12);
-  --bg-inset: rgba(255, 255, 255, 0.03);
-  --fg-subtle: rgba(255, 255, 255, 0.3);
-  --bold: #7d8590;
+    --bg-elevated: rgba(0, 0, 0, 0.12);
+    --bg-inset: rgba(255, 255, 255, 0.03);
+    --fg-subtle: rgba(255, 255, 255, 0.3);
+    --bold: var(--dark-mode-bold, #7d8590);
 
-  --image-brightness: var(--dark-mode-image-brightness);
-  --tooltip-hover-color: var(--dark-mode-tooltip-hover-color);
+    --image-brightness: var(--dark-mode-image-brightness);
+    --tooltip-hover-color: var(--dark-mode-tooltip-hover-color);
+}
+
+.android .nightMode {
+    --bg-color: black;
+    --fg-color: white;
+}
+
+.android .nightMode:not(.ankidroid_dark_mode) {
+    /* make it brighter since bg is black */
+    --bg-elevated: rgba(255, 255, 255, 0.06);
+}
+
+.android .nightMode.ankidroid_dark_mode {
+    --bg-color: #303030;
 }
 
 .card:not(.nightMode) {
-  --bg-color: var(--light-mode-bg-color);
-  --fg-color: var(--light-mode-fg-color);
-  --heiban: var(--light-mode-heiban, initial);
-  --atamadaka: var(--light-mode-atamadaka, initial);
-  --nakadaka: var(--light-mode-nakadaka, initial);
-  --odaka: var(--light-mode-odaka, initial);
-  --kifuku: var(--light-mode-kifuku, initial);
+    --bg-color: var(--light-mode-bg-color);
+    --fg-color: var(--light-mode-fg-color);
+    --heiban: var(--light-mode-heiban, initial);
+    --atamadaka: var(--light-mode-atamadaka, initial);
+    --nakadaka: var(--light-mode-nakadaka, initial);
+    --odaka: var(--light-mode-odaka, initial);
+    --kifuku: var(--light-mode-kifuku, initial);
 
-  --bg-elevated: rgba(0, 0, 0, 0.03);
-  --bg-inset: rgba(0, 0, 0, 0.06);
-  --fg-subtle: rgba(0, 0, 0, 0.6);
-  --bold: #999999;
+    --bg-elevated: rgba(0, 0, 0, 0.03);
+    --bg-inset: rgba(0, 0, 0, 0.06);
+    --fg-subtle: rgba(0, 0, 0, 0.6);
+    --bold: var(--light-mode-bold, #999999);
 
-  --image-brightness: var(--light-mode-image-brightness);
-  --tooltip-hover-color: var(--light-mode-tooltip-hover-color);
+    --image-brightness: var(--light-mode-image-brightness);
+    --tooltip-hover-color: var(--light-mode-tooltip-hover-color);
 }
 
 html.win,
 html.mac,
 html.linux:not(.android) {
-  --main-font-size: var(--pc-main-font-size);
-  --main-def-size: var(--pc-main-def-size);
-  --vocab-font-size: var(--pc-vocab-font-size);
-  --back-vocab-font-size: var(--pc-back-vocab-font-size);
-  --sentence-font-size: var(--pc-sentence-font-size);
-  --back-sentence-font-size: var(--pc-back-sentence-font-size);
-  --hint-font-size: var(--pc-hint-font-size);
-  --info-font-size: var(--pc-info-font-size);
+    --main-font-size: var(--pc-main-font-size);
+    --main-def-size: var(--pc-main-def-size);
+    --vocab-font-size: var(--pc-vocab-font-size);
+    --back-vocab-font-size: var(--pc-back-vocab-font-size);
+    --sentence-font-size: var(--pc-sentence-font-size);
+    --back-sentence-font-size: var(--pc-back-sentence-font-size);
+    --hint-font-size: var(--pc-hint-font-size);
+    --info-font-size: var(--pc-info-font-size);
 }
 
 html.mobile {
-  --main-font-size: var(--mobile-main-font-size);
-  --main-def-size: var(--mobile-main-def-size);
-  --vocab-font-size: var(--mobile-vocab-font-size);
-  --back-vocab-font-size: var(--mobile-back-vocab-font-size);
-  --sentence-font-size: var(--mobile-sentence-font-size);
-  --back-sentence-font-size: var(--mobile-back-sentence-font-size);
-  --hint-font-size: var(--mobile-hint-font-size);
-  --info-font-size: var(--mobile-info-font-size);
+    --main-font-size: var(--mobile-main-font-size);
+    --main-def-size: var(--mobile-main-def-size);
+    --vocab-font-size: var(--mobile-vocab-font-size);
+    --back-vocab-font-size: var(--mobile-back-vocab-font-size);
+    --sentence-font-size: var(--mobile-sentence-font-size);
+    --back-sentence-font-size: var(--mobile-back-sentence-font-size);
+    --hint-font-size: var(--mobile-hint-font-size);
+    --info-font-size: var(--mobile-info-font-size);
 }
 
 #qa {
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  min-height: calc(100vh - 40px);
-  font-family: var(--font-serif);
-  font-size: var(--main-font-size);
-  text-align: center;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    min-height: calc(100vh - 40px);
+    font-family: var(--font-serif);
+    font-size: var(--main-font-size);
+    text-align: center;
 }
 
 /* ------- Mobile css ------- */
 @media (max-width: 512px) {
-  .images-container {
-    justify-content: space-around;
-    flex-direction: row !important;
-    max-width: 100% !important;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-  .images-container img {
-    width: 44%;
-  }
+    .images-container {
+        justify-content: space-around;
+        flex-direction: row !important;
+        max-width: 100% !important;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .images-container img {
+        width: 44%;
+    }
 }
 
 /* ----- Front elements ----- */
 
 .front-vocab {
-  font-size: var(--vocab-font-size);
+    font-size: var(--vocab-font-size);
 }
+
 .front-sentence {
-  font-size: var(--sentence-font-size);
-  display: inline-block;
+    font-size: var(--sentence-font-size);
+    display: inline-block;
 }
+
 #hint {
-  font-size: var(--hint-font-size);
-  margin-top: -5px;
+    font-size: var(--hint-font-size);
+    margin-top: -5px;
 }
+
 #click {
-  user-select: none;
+    user-select: none;
 }
+
 #click .front-vocab {
-  display: inline-block;
-  line-height: 1.2;
-  border-bottom: 2px dotted var(--fg-subtle);
+    display: inline-block;
+    line-height: 1.2;
+    border-bottom: 2px dotted var(--fg-subtle);
 }
 
 /* ----- Back elements ----- */
 
 /* Vocab on the back (for mobile) */
 .vocab {
-  font-size: var(--back-vocab-font-size);
+    font-size: var(--back-vocab-font-size);
 }
 
 .mobile .vocab {
-  font-size: var(--back-vocab-font-size);
+    font-size: var(--back-vocab-font-size);
 }
 
 a {
-  color: #3b82f6 !important;
+    color: #3b82f6 !important;
 }
+
 .nightMode a {
-  color: #93c5fd !important;
+    color: #93c5fd !important;
 }
 
 /* Header */
 header {
-  color: var(--fg-subtle);
-  height: 40px;
-  text-align: right;
-  width: 100%;
-  font-size: 1rem;
+    color: var(--fg-subtle);
+    height: 40px;
+    text-align: right;
+    width: 100%;
+    font-size: 1rem;
 }
 
 .top-container {
-  max-width: calc(var(--max-width) + 20px);
-  margin: 0px auto;
-  width: calc(100% - 20px);
-  fill: var(--fg-subtle) !important;
-  position: relative;
-  display: inline-block;
+    max-width: calc(var(--max-width) + 20px);
+    margin: 0px auto;
+    width: calc(100% - 20px);
+    fill: var(--fg-subtle) !important;
+    position: relative;
+    display: inline-block;
 }
 
 .freq-dropdown {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .freq-list-container {
-  font-family: var(--font-sans);
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: var(--tooltip-hover-color);
-  color: var(--fg-color);
-  padding: 10px;
-  border-radius: 5px;
-  z-index: 1000;
-  width: 200px;
+    font-family: var(--font-sans);
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--tooltip-hover-color);
+    color: var(--fg-color);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 200px;
 }
 
 .freq-list-container ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .freq-list-container li {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .freq-list-container {
-  opacity: 0;
+    opacity: 0;
 }
 
 .freq-list-container.visible {
-  display: block;
-  opacity: 1;
+    display: block;
+    opacity: 1;
 }
 
 /* Info (audio, reading) */
 .info {
-  font-family: var(--font-sans);
-  font-size: var(--info-font-size);
-  color: var(--fg-color);
-  margin: auto;
+    font-family: var(--font-sans);
+    font-size: var(--info-font-size);
+    color: var(--fg-color);
+    margin: auto;
 }
 
 .mobile .info {
-  font-size: 0.9rem;
-  padding-top: 7px;
+    font-size: 0.9rem;
+    padding-top: 7px;
 }
 
 /* Replay button */
 .replay-button svg {
-  width: 32px;
-  height: 32px;
+    width: 32px;
+    height: 32px;
 }
 
 .mobile .audio-buttons {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 /* Pitch */
 .pitch {
-  display: inline;
+    display: inline;
 }
+
 #pitch-tags {
-  color: var(--bg-color);
-  font-family: var(--font-serif);
-  background-color: var(--fg-color);
-  display: none;
-  vertical-align: top;
-  padding: 1px 3px;
-  margin-right: -5px;
+    color: var(--bg-color);
+    font-family: var(--font-serif);
+    background-color: var(--fg-color);
+    display: none;
+    vertical-align: top;
+    padding: 1px 3px;
+    margin-right: -5px;
 }
+
 .mobile .nightMode #pitch-tags {
-  color: #000 !important;
-  background-color: #fff;
+    color: #000 !important;
+    background-color: #fff;
 }
 
 /* When multiple pitch */
 .pitch ul,
 #pitch-tags ul {
-  list-style: none;
-  display: inline;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
 }
+
 .pitch li,
 #pitch-tags li {
-  display: inline;
+    display: inline;
 }
-.pitch ul > li:not(:last-child)::after,
-#pitch-tags ul > li:not(:last-child)::after {
-  content: "・";
+
+.pitch ul>li:not(:last-child)::after,
+#pitch-tags ul>li:not(:last-child)::after {
+    content: "・";
 }
-.pitch ul > li:not(:last-child)::after {
-  color: var(--fg-color);
+
+.pitch ul>li:not(:last-child)::after {
+    color: var(--fg-color);
 }
-#pitch-tags ul > li:not(:last-child)::after {
-  color: var(--bg-color);
+
+#pitch-tags ul>li:not(:last-child)::after {
+    color: var(--bg-color);
 }
 
 /* Definition container */
 .main-def {
-  max-width: var(--max-width);
-  font-size: var(--main-def-size);
-  line-height: 1.75em;
-  margin: 25px auto;
-  width: calc(100% - 20px);
-  position: relative;
-  display: block;
+    max-width: var(--max-width);
+    font-size: var(--main-def-size);
+    line-height: 1.75em;
+    margin: 25px auto;
+    width: calc(100% - 20px);
+    position: relative;
+    display: block;
 }
 
 /* Definition info display */
 .def-info-container {
-  display: block;
-  max-width: var(--max-width);
-  width: calc(100% - 20px);
-  position: relative;
-  margin: 0 auto;
+    display: block;
+    max-width: var(--max-width);
+    width: calc(100% - 20px);
+    position: relative;
+    margin: 0 auto;
 }
 
 .def-info {
-  font-family: var(--font-sans);
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 0.9rem;
-  color: var(--fg-subtle);
-  pointer-events: none;
+    font-family: var(--font-sans);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.9rem;
+    color: var(--fg-subtle);
+    pointer-events: none;
 }
 
 .mobile .def-info {
-  display: none;
+    display: none;
 }
 
 /* MainDefinition */
 .definition {
-  text-align: left;
-  display: inline-block;
+    text-align: left;
+    display: inline-block;
 }
 
 /* Definition box */
 .def-blockquote {
-  font-family: var(--font-sans);
-  background-color: var(--bg-elevated);
-  display: block;
-  max-width: min(var(--max-width), calc(100% - 20px));
-  text-align: left;
-  align-items: left;
-  justify-content: left;
-  border-left: 5px solid #ccc;
-  overflow: hidden;
-  padding: 5px 10px;
-  position: relative;
+    font-family: var(--font-sans);
+    background-color: var(--bg-elevated);
+    display: block;
+    max-width: min(var(--max-width), calc(100% - 20px));
+    text-align: left;
+    align-items: left;
+    justify-content: left;
+    border-left: 5px solid #ccc;
+    overflow: hidden;
+    padding: 5px 10px;
+    position: relative;
 }
 
 /* Primary Image */
 .image img {
-  max-height: 400px;
-  width: auto;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: filter 0.3s;
+    max-height: 400px;
+    width: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s;
 }
 
 .image img:hover {
-  filter: brightness(var(--image-brightness));
+    filter: brightness(var(--image-brightness));
 }
 
 /* Image modal css */
 .modal-bg {
-  position: fixed;
-  display: none;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  cursor: pointer;
+    position: fixed;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    cursor: pointer;
 }
+
 .img-popup-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(calc(100% - 20px), calc(var(--max-width) + 200px));
-  display: none;
-  z-index: 1001;
-  overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(calc(100% - 20px), calc(var(--max-width) + 200px));
+    display: none;
+    z-index: 1001;
+    overflow: hidden;
 }
+
 .img-popup-img {
-  width: auto;
-  height: auto;
-  margin: 0 auto;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
 }
 
 /* Hide NFSW Images -- make sure you use the tag `NSFW` EXACTLY */
 .NSFW img {
-  filter: blur(30px);
-  transition: filter 0.2s;
+    filter: blur(30px);
+    transition: filter 0.2s;
 }
 
 .NSFW img:hover {
-  filter: blur(0px);
-  transition: filter 0.2s;
+    filter: blur(0px);
+    transition: filter 0.2s;
 }
 
 /* Back sentence */
 .sentence {
-  font-size: var(--back-sentence-font-size);
-  display: inline-block;
-  width: calc(100% - 20px);
-  max-width: var(--max-width);
+    font-size: var(--back-sentence-font-size);
+    display: inline-block;
+    width: calc(100% - 20px);
+    max-width: var(--max-width);
 }
+
 .sentence-mobile {
-  display: none;
+    display: none;
 }
+
 .mobile .sentence {
-  display: none;
+    display: none;
 }
+
 .mobile .sentence-mobile {
-  font-size: var(--back-sentence-font-size);
-  display: inline-block;
-  width: calc(100% - 20px);
-  max-width: var(--max-width);
+    font-size: var(--back-sentence-font-size);
+    display: inline-block;
+    width: calc(100% - 20px);
+    max-width: var(--max-width);
 }
 
 /* Footer */
 footer {
-  margin-top: auto;
-  width: 100%;
+    margin-top: auto;
+    width: 100%;
 }
+
 .bot-container {
-  display: flex;
-  justify-content: flex-end;
-  max-width: calc(var(--max-width) + 20px);
-  margin: 0px auto;
-  width: calc(100% - 20px);
+    display: flex;
+    justify-content: flex-end;
+    max-width: calc(var(--max-width) + 20px);
+    margin: 0px auto;
+    width: calc(100% - 20px);
 }
+
 .tags-container {
-  flex-grow: 1;
+    flex-grow: 1;
 }
+
 .tags {
-  font-family: var(--font-sans);
-  background-color: var(--bg-elevated);
-  color: var(--fg-color);
-  display: inline-block;
-  padding: 1px 5px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  margin: auto 3px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 60dvw;
-  white-space: nowrap;
+    font-family: var(--font-sans);
+    background-color: var(--bg-elevated);
+    color: var(--fg-color);
+    display: inline-block;
+    padding: 1px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin: auto 3px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 60dvw;
+    white-space: nowrap;
 }
+
 .mobile .tags {
-  padding: 1px 3px;
-  font-size: 9px;
+    padding: 1px 3px;
+    font-size: 9px;
 }
 
 /* Popup CSS */
 .popup {
-  font-family: var(--font-sans);
-  background-color: var(--bg-elevated);
-  display: block;
-  border-radius: 8px;
-  padding: 10px;
-  max-width: min(var(--max-width), calc(100% - 20px));
+    font-family: var(--font-sans);
+    background-color: var(--bg-elevated);
+    display: block;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: min(var(--max-width), calc(100% - 20px));
 }
 
 /* Definition Header */
 .def-header {
-  --header-default-max-width: 820px;
-  --header-max-width: max(var(--max-width), var(--header-default-max-width));
-  --max-word-to-picture-ratio: 75%; /* Maximum ratio allowed */
-  --mobile-max-word-to-picture-ratio: 60%; 
-  display: flex;
-  font-size: 30px;
-  justify-content: center;
-  align-items: center;
-  max-width: var(--header-max-width);
-  margin: auto;
-  position: relative;
+    --header-default-max-width: 820px;
+    --header-max-width: max(var(--max-width), var(--header-default-max-width));
+    --max-word-to-picture-ratio: 75%; /* Maximum ratio allowed */
+    --mobile-max-word-to-picture-ratio: 60%; 
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--header-max-width);
+    margin: auto;
+    position: relative;
 }
 .mobile .def-header {
   --max-word-to-picture-ratio: var(--mobile-max-word-to-picture-ratio);
 }
 
 .dh-left {
-  /* left */
-  background: var(--bg-elevated);
-  padding: 0.52em;
-  border-radius: 5px;
-  flex: 1; /* takes up all available space */
+    /* left */
+    background: var(--bg-elevated);
+    padding: 0.52em;
+    border-radius: 5px;
+    flex: 1; /* takes up all available space */
 }
 .has-picture .dh-left {
-  flex: 1 0 auto;
-  max-width: var(--max-word-to-picture-ratio);
-  min-width: 40%; /* for consistency */
+    flex: 1 0 auto;
+    max-width: var(--max-word-to-picture-ratio);
+    min-width: 40%; /* for consistency */
 }
 
 .dh-right {
-  --picture-max-width: calc(var(--header-default-max-width) / 2);
-  box-sizing: border-box;
-  padding-left: min(1.5vw, 20px);
-  max-width: var(--picture-max-width);
-  position: relative;
-  font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
-  flex: 0 1 auto;
+    --picture-max-width: calc(var(--header-default-max-width) / 2);
+    box-sizing: border-box;
+    padding-left: min(1.5vw, 20px);
+    max-width: var(--picture-max-width);
+    position: relative;
+    font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
+    flex: 0 1 auto;
 }
 .has-picture .dh-right {
-  min-width: min(var(--picture-max-width), calc(100% - var(--max-word-to-picture-ratio)));
+    min-width: min(var(--picture-max-width), calc(100% - var(--max-word-to-picture-ratio)));
 }
 
 /* dynamic margins that :
@@ -520,257 +559,254 @@ footer {
   keep def-header at default width if it doesn't need to grow 
   don't have any effect if --max-width isn't wider than default */
 .dh-shrinkable {
-  /* divide by 2 because there are two: one on both sides */
-  flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
-  max-width: 25%;
+    /* divide by 2 because there are two: one on both sides */
+    flex: 0 10 calc((var(--header-max-width) - var(--header-default-max-width))/2);
+    max-width: 25%;
 }
 
 .mobile .dh-left {
-  background: none;
-  padding: 0em;
-  border-radius: 0px;
-  max-width: 60vw;
+    background: none;
+    padding: 0em;
+    border-radius: 0px;
+    max-width: 60vw;
 }
+
 .mobile .dh-right {
-  max-width: 40vw;
+    max-width: 40vw;
 }
 
 /* Misc. info */
 .misc-info {
-  margin: 0 auto;
+    margin: 0 auto;
 }
+
 .misc-info ul {
-  margin: 0;
+    margin: 0;
 }
 
 /* Full definition */
 .full-def {
-  font-family: var(--font-sans);
-  text-align: left;
-  display: inline-flex;
+    font-family: var(--font-sans);
+    text-align: left;
+    display: inline-flex;
 }
+
 .full-def ol {
-  margin: 0;
+    margin: 0;
 }
 
 /* ----- Misc ----- */
 
 /* Furigana */
-.show-furigana > ruby rt {
-  opacity: 1;
+.show-furigana>ruby rt {
+    opacity: 1;
 }
+
 ruby rt {
-  user-select: none;
-  opacity: 0;
+    user-select: none;
+    opacity: 0;
 }
+
 ruby:hover rt {
-  opacity: 1;
+    opacity: 1;
 }
 
 /* Bold */
 b {
-  color: var(--bold);
-  font-weight: 600;
+    color: var(--bold);
+    font-weight: 600;
 }
-b > ruby rt {
-  opacity: 1;
+
+b>ruby rt {
+    opacity: 1;
 }
+
 .mobile b {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 /* Dropdown */
 details {
-  font-family: var(--font-sans);
-  margin: 5px 0px;
+    font-family: var(--font-sans);
+    margin: 5px 0px;
 }
+
 summary {
-  user-select: none;
-  cursor: pointer;
-  width: fit-content;
-  margin: 0px auto;
+    user-select: none;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0px auto;
 }
 
 /* Pitch graphs css */
 .pitch-low {
-  position: relative;
+    position: relative;
 }
+
 .pitch-high {
-  position: relative;
+    position: relative;
 }
-.pitch-high > .pitch-line {
-  display: block;
-  position: absolute;
-  top: -0.001em;
-  left: 0;
-  right: 0;
-  height: 0;
-  border-top-width: 0.1em;
-  border-top-style: solid;
+
+.pitch-high>.pitch-line {
+    display: block;
+    position: absolute;
+    top: -0.001em;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top-width: 0.1em;
+    border-top-style: solid;
 }
+
 .pitch-to-drop {
-  position: relative;
-  padding-right: 0.1em;
-  margin-right: 0.1em;
+    position: relative;
+    padding-right: 0.1em;
+    margin-right: 0.1em;
 }
-.pitch-to-drop > .pitch-line {
-  display: block;
-  position: absolute;
-  top: -0.001em;
-  left: 0;
-  right: 0;
-  border-top-width: 0.1em;
-  border-top-style: solid;
-  right: -0.1em;
-  height: 0.4em;
-  border-right-width: 0.1em;
-  border-right-style: solid;
+
+.pitch-to-drop>.pitch-line {
+    display: block;
+    position: absolute;
+    top: -0.001em;
+    left: 0;
+    right: 0;
+    border-top-width: 0.1em;
+    border-top-style: solid;
+    right: -0.1em;
+    height: 0.4em;
+    border-right-width: 0.1em;
+    border-right-style: solid;
 }
 
 /* Pitch coloring */
 .heiban {
-  color: var(--heiban);
+    color: var(--heiban);
 }
+
 .atamadaka {
-  color: var(--atamadaka);
+    color: var(--atamadaka);
 }
+
 .nakadaka {
-  color: var(--nakadaka);
+    color: var(--nakadaka);
 }
+
 .odaka {
-  color: var(--odaka);
+    color: var(--odaka);
 }
+
 .kifuku {
-  color: var(--kifuku);
+    color: var(--kifuku);
 }
 
 /* Definition toggle css */
 .left-edge,
 .right-edge {
-  position: absolute;
-  top: 0;
-  width: 50px;
-  height: 100%;
-  cursor: pointer;
-  opacity: 0.4;
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0.4;
 }
+
 .left-edge {
-  left: 0;
-  border-radius: 8px 0px 0px 8px;
+    left: 0;
+    border-radius: 8px 0px 0px 8px;
 }
+
 .right-edge {
-  right: 0;
-  border-radius: 0px 8px 8px 0px;
+    right: 0;
+    border-radius: 0px 8px 8px 0px;
 }
+
 .left-edge:hover,
 .right-edge:hover {
-  background-color: var(--bg-inset);
-  cursor: pointer;
+    background-color: var(--bg-inset);
+    cursor: pointer;
 }
 
 /* Format Definitions */
-#primary ul[data-sc-content="glossary"] > li:not(:first-child)::before {
-  white-space: pre-wrap;
-  content: " | ";
-  display: inline;
+#primary ul[data-sc-content="glossary"]>li:not(:first-child)::before {
+    white-space: pre-wrap;
+    content: " | ";
+    display: inline;
 }
-#primary ul[data-sc-content="glossary"] > li {
-  display: inline;
+
+#primary ul[data-sc-content="glossary"]>li {
+    display: inline;
 }
+
 #primary ul[data-sc-content="glossary"] {
-  display: inline;
-  list-style: none;
-  padding-left: 0;
+    display: inline;
+    list-style: none;
+    padding-left: 0;
+}
+
+/* fix list-number for {jitendex-brief} */
+#primary li[data-dictionary]:not(:has(> i))>span>div {
+    display: inline;
 }
 
 /* Turn off italics */
 .definition i {
-  font-style: normal;
+    font-style: normal;
 }
 
 li[data-dictionary^="JMdict"] i {
-  font-style: italic;
+    font-style: italic;
 }
 
 .definition a span {
-  max-width: 300px !important;
+    max-width: 300px !important;
+}
+
+.definition .hidden {
+    display: none
 }
 
 /* backwards compatibility code for JPMN definitions */
 
-li[data-details="JMdict (English)"] .dict-group__glossary > ul,
-li[data-details="JMdict (English)"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"],
-li[data-details="JMdict"] .dict-group__glossary > ul,
+li[data-details="JMdict (English)"] .dict-group__glossary>ul,
+li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content="glossary"],
+li[data-details="JMdict"] .dict-group__glossary>ul,
 li[data-details="JMdict"] .dict-group__glossary ul[data-sc-content="glossary"],
-li[data-details="JMdict Extra"] .dict-group__glossary > ul,
-li[data-details="JMdict Extra"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"] {
-  display: inline;
-  padding-left: 0em;
+li[data-details="JMdict Extra"] .dict-group__glossary>ul,
+li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content="glossary"] {
+    display: inline;
+    padding-left: 0em;
 }
-li[data-details="JMdict (English)"] .dict-group__glossary > ul > li,
-li[data-details="JMdict (English)"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li,
-li[data-details="JMdict"] .dict-group__glossary > ul > li,
-li[data-details="JMdict"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li,
-li[data-details="JMdict Extra"] .dict-group__glossary > ul > li,
-li[data-details="JMdict Extra"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li {
-  display: inline;
-  padding-right: 0em;
-  margin-right: 0em;
+
+li[data-details="JMdict (English)"] .dict-group__glossary>ul>li,
+li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content="glossary"]>li,
+li[data-details="JMdict"] .dict-group__glossary>ul>li,
+li[data-details="JMdict"] .dict-group__glossary ul[data-sc-content="glossary"]>li,
+li[data-details="JMdict Extra"] .dict-group__glossary>ul>li,
+li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content="glossary"]>li {
+    display: inline;
+    padding-right: 0em;
+    margin-right: 0em;
 }
-li[data-details="JMdict (English)"] .dict-group__glossary > ul > li::after,
-li[data-details="JMdict (English)"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li::after,
-li[data-details="JMdict"] .dict-group__glossary > ul > li::after,
-li[data-details="JMdict"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li::after,
-li[data-details="JMdict Extra"] .dict-group__glossary > ul > li::after,
-li[data-details="JMdict Extra"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li::after {
-  content: " | ";
-  white-space: pre-wrap;
+
+li[data-details="JMdict (English)"] .dict-group__glossary>ul>li::after,
+li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content="glossary"]>li::after,
+li[data-details="JMdict"] .dict-group__glossary>ul>li::after,
+li[data-details="JMdict"] .dict-group__glossary ul[data-sc-content="glossary"]>li::after,
+li[data-details="JMdict Extra"] .dict-group__glossary>ul>li::after,
+li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content="glossary"]>li::after {
+    content: " | ";
+    white-space: pre-wrap;
 }
-li[data-details="JMdict (English)"]
-  .dict-group__glossary
-  > ul
-  > li:last-of-type:after,
-li[data-details="JMdict (English)"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li:last-of-type:after,
-li[data-details="JMdict"] .dict-group__glossary > ul > li:last-of-type:after,
-li[data-details="JMdict"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li:last-of-type:after,
-li[data-details="JMdict Extra"]
-  .dict-group__glossary
-  > ul
-  > li:last-of-type:after,
-li[data-details="JMdict Extra"]
-  .dict-group__glossary
-  ul[data-sc-content="glossary"]
-  > li:last-of-type:after {
-  display: none;
+
+li[data-details="JMdict (English)"] .dict-group__glossary>ul>li:last-of-type:after,
+li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content="glossary"]>li:last-of-type:after,
+li[data-details="JMdict"] .dict-group__glossary>ul>li:last-of-type:after,
+li[data-details="JMdict"] .dict-group__glossary ul[data-sc-content="glossary"]>li:last-of-type:after,
+li[data-details="JMdict Extra"] .dict-group__glossary>ul>li:last-of-type:after,
+li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content="glossary"]>li:last-of-type:after {
+    display: none;
 }
+
 /*
  * customization for specific dictionaries
  */
@@ -778,37 +814,29 @@ li[data-details="JMdict Extra"]
 ol li[data-details="JMdict (English)"],
 ol li[data-details="JMdict"],
 ol li[data-details="JMdict Extra"] {
-  /* removes the dictionary entry for jmdict */
+    /* removes the dictionary entry for jmdict */
 }
+
 ol li[data-details="JMdict (English)"] .dict-group__tag-list,
 ol li[data-details="JMdict"] .dict-group__tag-list,
 ol li[data-details="JMdict Extra"] .dict-group__tag-list {
-  font-style: italic;
+    font-style: italic;
 }
-ol
-  li[data-details="JMdict (English)"]
-  .dict-group__tag-list
-  .dict-group__tag--dict,
+
+ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict,
 ol li[data-details="JMdict"] .dict-group__tag-list .dict-group__tag--dict,
-ol
-  li[data-details="JMdict Extra"]
-  .dict-group__tag-list
-  .dict-group__tag--dict {
-  display: none;
+ol li[data-details="JMdict Extra"] .dict-group__tag-list .dict-group__tag--dict {
+    display: none;
 }
 
 /* Makes Nico/Pixiv italic */
 ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
-  font-style: italic;
+    font-style: italic;
 }
 
 /* Removes the extra text for the collapsed 新和英 display */
-ol
-  li[data-details="新和英"]
-  details.glossary-text__details
-  .glossary-text__summary
-  .dict-group__glossary--first-line {
-  display: none;
+ol li[data-details="新和英"] details.glossary-text__details .glossary-text__summary .dict-group__glossary--first-line {
+    display: none;
 }
 
 /*
@@ -817,13 +845,13 @@ ol
  * --------------------
  */
 .dict-group__tag-list .dict-group__tag:not(:first-child)::before {
-  content: ", ";
+    content: ", ";
 }
 
 .dict-group__tag-list::before {
-  content: "(";
+    content: "(";
 }
 
 .dict-group__tag-list::after {
-  content: ") ";
+    content: ") ";
 }

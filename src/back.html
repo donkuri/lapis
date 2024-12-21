@@ -1,514 +1,560 @@
 <!---------- Header ------------->
 <header>
-  <div class="top-container">
-    <!-- Show the frequency number -->
-    {{FreqSort}}
+    <div class="top-container">
+        <!-- Show the frequency number -->
+        {{FreqSort}}
 
-    <!-- The frequency dropdown icon -->
-    {{#Frequency}}
-      <span class="freq-dropdown">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="dropdown-arrow-svg" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-            <path d="M 12.7,6.5 H 3.3 L 8,11 Z"></path>
-        </svg>
-      </span>
-    {{/Frequency}}
+        <!-- The frequency dropdown icon -->
+        {{#Frequency}}
+        <span class="freq-dropdown">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="dropdown-arrow-svg"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                <path d="M 12.7,6.5 H 3.3 L 8,11 Z"></path>
+            </svg>
+        </span>
+        {{/Frequency}}
 
-    <!-- The frequency list -->
-    <div class="freq-list-container"></div>
-  </div>
+        <!-- The frequency list -->
+        <div class="freq-list-container"></div>
+    </div>
 </header>
 
 <main lang="ja">
-  <div class="template{{#Picture}} has-picture{{/Picture}}">
+    <div class="template{{#Picture}} has-picture{{/Picture}}">
 
-    <!-- The first row (vocab box+picture) -->
-    <div class="def-header">
-      <div class="dh-shrinkable"></div>
-      <div class="dh-left">
-        <div class="show-furigana vocab">
-          {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
-          {{^ExpressionFurigana}}{{Expression}}{{/ExpressionFurigana}}
+        <!-- The first row (vocab box+picture) -->
+        <div class="def-header">
+            <div class="dh-shrinkable"></div>
+            <div class="dh-left">
+                <div class="show-furigana vocab">
+                    {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
+                    {{^ExpressionFurigana}}{{Expression}}{{/ExpressionFurigana}}
+                </div>
+
+                <!-- Reading + Pitch Accent -->
+                <div class="info">
+                    <div class="pitch">
+                        <div style="margin-right: -15px; display: inline">
+                            {{#ExpressionFurigana}}{{kana:ExpressionFurigana}}{{/ExpressionFurigana}}
+                            {{^ExpressionFurigana}}{{ExpressionReading}}{{/ExpressionFurigana}}
+                        </div>
+                    </div>
+
+                    <!-- Pitch Accent -->
+                    {{#PitchPosition}}
+                    <span id="pitch-tags" class="tags"> {{PitchPosition}} </span>
+                    {{/PitchPosition}}
+                    <br />
+                    <div class="audio-buttons">{{ExpressionAudio}} {{SentenceAudio}}</div>
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="dh-right">
+                {{#Picture}}
+                <div class="image tappable {{Tags}}">{{Picture}}</div>
+                {{/Picture}}
+            </div>
+            <div class="dh-shrinkable"></div>
         </div>
 
-        <!-- Reading + Pitch Accent -->
-        <div class="info">
-        <div class="pitch">
-          <div style="margin-right: -15px; display: inline">
-            {{#ExpressionFurigana}}{{kana:ExpressionFurigana}}{{/ExpressionFurigana}}
-            {{^ExpressionFurigana}}{{ExpressionReading}}{{/ExpressionFurigana}}
-          </div>
+        <br>
+        <div class="sentence">
+            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
         </div>
 
-        <!-- Pitch Accent -->
-        {{#PitchPosition}}
-        <span id="pitch-tags" class="tags"> {{PitchPosition}} </span>
-        {{/PitchPosition}}
-        <br/>
-        <div class="audio-buttons">{{ExpressionAudio}} {{SentenceAudio}}</div>
-      </div>
-      </div>
+        <!-- The entire definition blockquote -->
+        <div class="def-info-container"><div class="def-info"></div></div>
+        <blockquote class="main-def def-blockquote">
+            <div class="definition">
+                {{#SelectionText}}
+                <div id="selection" data-display-name="Text Selection">{{SelectionText}}</div>
+                {{/SelectionText}}
+                {{#MainDefinition}}
+                <div id="primary" data-display-name="Primary Definition">{{MainDefinition}}</div>
+                {{/MainDefinition}}
+                <div id="glossaries" data-display-name="Glossaries">{{Glossary}}</div>
+            </div>
+        </blockquote>
 
-      <!-- Image -->
-      <div class="dh-right">
-        {{#Picture}}
-          <div class="image tappable {{Tags}}">{{Picture}}</div>
-        {{/Picture}}
-      </div>
-      <div class="dh-shrinkable"></div>
-    </div>
+        <!-- This is for the sentence that you see on mobile (positioned under definition), on Desktop, the sentence goes above the definition box, and this is hidden -->
+        <div class="sentence-mobile">
+            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+        </div>
 
-    <br>
-    <div class="sentence">
-      {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-      {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
-    </div>
+        <!------- Image modal --------->
+        <div class="modal-bg tappable"></div>
+        <div class="img-popup"></div>
 
-  <!-- The entire definition blockquote -->
-  <div class="def-info-container"><div class="def-info"></div></div>
-    <blockquote class="main-def def-blockquote">
-      <div class="definition">
-        {{#SelectionText}}{{SelectionText}}{{/SelectionText}}
-      </div>
-    </blockquote>
-
-  <!-- This is for the sentence that you see on mobile (positioned under definition), on Desktop, the sentence goes above the definition box, and this is hidden -->
-  <div class="sentence-mobile">
-    {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-    {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
-  </div>
-
-  <!------- Image modal --------->
-  <div class="modal-bg tappable"></div>
-  <div class="img-popup"></div>
-
-  {{#MiscInfo}}
-    <div style="text-align: center">
-      <div>
-        <details>
-          <summary>Misc. info</summary>
-          <div class="misc-info popup">
-            === Details ===
-            <br />
-            {{MiscInfo}}
-          </div>
-        </details>
-      </div>
-    </div>
-  {{/MiscInfo}}
+        {{#MiscInfo}}
+        <div style="text-align: center">
+            <div>
+                <details>
+                    <summary>Misc. info</summary>
+                    <div class="misc-info popup">
+                        === Details ===
+                        <br />
+                        {{MiscInfo}}
+                    </div>
+                </details>
+            </div>
+        </div>
+        {{/MiscInfo}}
 </main>
 
 <!----------- Footer ------------->
 <footer lang="ja">
-  <br>
-  <div class="bot-container">
-    {{#Tags}}
-    <div class="tags-container">
-      <div class="tags">{{Tags}}</div>
+    <br>
+    <div class="bot-container">
+        {{#Tags}}
+        <div class="tags-container">
+            <div class="tags">{{Tags}}</div>
+        </div>
+        {{/Tags}}
     </div>
-    {{/Tags}}
-  </div>
 </footer>
 
 <!----------- Scripts ------------>
 <script>
-  // This code is concerned with calculating the Pitch Accent and constructing the pitch accent graphs
-  function isOdaka(pitchNumber) {
-    const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
-    return (
-      kana !== null &&
-      kana.replace(/[ャュョゃゅょ]/g, "").length === pitchNumber
-    );
-  }
-
-  function endsWithAny(suffixes, string) {
-    for (let suffix of suffixes) {
-      if (string.endsWith(suffix)) return true;
-    }
-    return false;
-  }
-
-  function getPitchType(pitchPosition) {
-    if (
-      endsWithAny(
-        ["い", "う", "く", "す", "つ", "ぶ", "む", "る"],
-        "{{Expression}}".replace("</div>", ""),
-      )
-    ) {
-      if (pitchPosition === 0) {
-        return "heiban";
-      } else {
-        return "kifuku";
-      }
-    } else {
-      if (pitchPosition === 0) {
-        return "heiban";
-      } else if (pitchPosition === 1) {
-        return "atamadaka";
-      } else if (pitchPosition > 1) {
-        return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
-      }
-    }
-  }
-
-  // Show the color
-  function paintTargetWord() {
-    const pitchPositions = `{{PitchPosition}}`.match(/^\d+|\d+\b|\d+(?=\w)/g);
-    if (pitchPositions === null) return;
-
-    const pitchPosition = Number(pitchPositions[0]);
-    const sentences = Array.from(
-      document.querySelectorAll(".sentence, .definition, .sentence-mobile"),
-    );
-    for (const sentence of sentences) {
-      for (const targetWord of sentence.getElementsByTagName("b")) {
-        targetWord.classList.add(getPitchType(pitchPosition));
-      }
+    // This code is concerned with calculating the Pitch Accent and constructing the pitch accent graphs
+    function isOdaka(pitchNumber) {
+        const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
+        return (
+            kana !== null &&
+            kana.replace(/[ァゥェォャュョィヮぁぅぇぉゃゅょぃゎ]/g, "").length === pitchNumber
+        );
     }
 
-    const vocabElement = document.querySelector(".vocab");
-    if (vocabElement !== null) {
-      vocabElement.classList.add(getPitchType(pitchPosition));
-    }
-  }
-
-  // Seperate Tags by space, and show them in their own boxes
-  function tweakHTML() {
-    // Split tags
-    const tagsContainer = document.querySelector(".tags-container");
-    const tags = `{{Tags}}`.split(" ");
-    if (tagsContainer) {
-      tagsContainer.innerHTML = "";
-      for (tag of tags) {
-        const tagElem = document.createElement("div");
-        tagElem.className = "tags";
-        tagElem.innerText = tag;
-        tagsContainer.appendChild(tagElem);
-      }
-    }
-  }
-
-  function groupMoras(kana) {
-    let currentChar = "";
-    let nextChar = "";
-    const groupedMoras = [];
-    const check = ["ャ", "ュ", "ョ", "ゃ", "ゅ", "ょ"];
-
-    for (let i = 0; i < kana.length; i++) {
-      currentChar = kana[i];
-      nextChar = i < kana.length - 1 && kana[i + 1];
-      if (check.includes(nextChar)) {
-        groupedMoras.push(currentChar + nextChar);
-        i += 1;
-      } else {
-        groupedMoras.push(currentChar);
-      }
-    }
-    return groupedMoras;
-  }
-
-  function getPitchPattern(pitchPosition) {
-    // 0 = low
-    // 1 = high
-    // 2 = high to low
-
-    const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
-    const moras = groupMoras(kana);
-    let pattern = [];
-
-    if (pitchPosition === 0) {
-      // 平板
-      pattern = [
-        ...Array(moras[0].length).fill("0"),
-        ...Array(kana.length - moras[0].length).fill("1"),
-      ];
-    } else if (pitchPosition === 1) {
-      // 頭高
-      pattern = [
-        ...(moras[0].length === 2 ? ["1", "2"] : ["2"]),
-        ...Array(kana.length - moras[0].length).fill("0"),
-      ];
-    } else if (pitchPosition > 1) {
-      if (isOdaka(pitchPosition)) {
-        // 尾高
-        pattern = [
-          ...Array(moras[0].length).fill("0"),
-          ...Array(kana.length - moras[0].length - 1).fill("1"),
-          "2",
-        ];
-      } else {
-        // 中高
-        let afterDrop = false;
-        for (let i = 0; i < moras.length; i++) {
-          if (i === 0) {
-            pattern = Array(moras[0].length).fill("0");
-          } else if (i + 1 === pitchPosition) {
-            pattern =
-              moras[i].length === 2
-                ? [...pattern, "1", "2"]
-                : [...pattern, "2"];
-            afterDrop = true;
-          } else if (afterDrop) {
-            pattern = [...pattern, ...Array(moras[i].length).fill("0")];
-          } else {
-            pattern = [...pattern, ...Array(moras[i].length).fill("1")];
-          }
+    function endsWithAny(suffixes, string) {
+        for (let suffix of suffixes) {
+            if (string.endsWith(suffix)) return true;
         }
-      }
-    }
-    return pattern;
-  }
-
-  function constructPitch() {
-    const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
-    const pitch = document.querySelector(".pitch");
-    const pitchTags = document.querySelector("#pitch-tags");
-    const pitchPositions = `{{PitchPosition}}`.match(/^\d+|\d+\b|\d+(?=\w)/g);
-
-    if (!pitchPositions) {
-      pitch.innerHTML = `<div style="margin-right: -15px; display: inline;">${kana}</div>`;
-      return;
+        return false;
     }
 
-    const createPitchSpan = (pitchClass, pitchChar) => {
-      const pitchSpan = document.createElement("span");
-      const charSpan = document.createElement("span");
-      const lineSpan = document.createElement("span");
-
-      pitchSpan.classList.add(pitchClass);
-      charSpan.classList.add("pitch-char");
-      charSpan.innerText = pitchChar;
-      lineSpan.classList.add("pitch-line");
-
-      pitchSpan.appendChild(charSpan);
-      pitchSpan.appendChild(lineSpan);
-
-      return pitchSpan;
-    };
-
-    pitch.innerHTML = "";
-    pitchTags.innerHTML = "";
-    pitchTags.style.display = "inline-block";
-    let uniquePitchPositions = [...new Set(pitchPositions)];
-
-    const pitchList = document.createElement("ul");
-    const pitchTagList = document.createElement("ul");
-
-    for (let pitchPosition of uniquePitchPositions) {
-      const pitchTag = document.createElement("li");
-      pitchTag.textContent = pitchPosition;
-
-      const pattern = getPitchPattern(Number(pitchPosition));
-
-      const pitchItem = document.createElement("li");
-      pitchItem.classList.add("pitch-item");
-      pitchItem.classList.add(getPitchType(Number(pitchPosition)));
-
-      for (let i = 0; i < kana.length; i++) {
-        if (pattern[i] === "0")
-          pitchItem.appendChild(createPitchSpan("pitch-low", kana[i]));
-        else if (pattern[i] === "1")
-          pitchItem.appendChild(createPitchSpan("pitch-high", kana[i]));
-        else if (pattern[i] === "2")
-          pitchItem.appendChild(createPitchSpan("pitch-to-drop", kana[i]));
-        else
-          console.error(
-            "pattern[i] found undefined value. pattern is",
-            pattern,
-          );
-      }
-      pitchTagList.appendChild(pitchTag);
-      pitchList.appendChild(pitchItem);
+    function getPitchType(pitchPosition) {
+        if (
+            endsWithAny(
+                ["い", "う", "く", "す", "つ", "ぶ", "む", "る"],
+                "{{Expression}}".replace("</div>", ""),
+            )
+        ) {
+            if (pitchPosition === 0) {
+                return "heiban";
+            } else {
+                return "kifuku";
+            }
+        } else {
+            if (pitchPosition === 0) {
+                return "heiban";
+            } else if (pitchPosition === 1) {
+                return "atamadaka";
+            } else if (pitchPosition > 1) {
+                return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
+            }
+        }
     }
 
-    pitch.appendChild(pitchList);
-    pitchTags.appendChild(pitchTagList);
-  }
+    // Show the color
+    function paintTargetWord() {
+        const pitchPositions = `{{PitchPosition}}`.match(/^\d+|\d+\b|\d+(?=\w)/g);
+        if (pitchPositions === null) return;
 
-  // Helper function to check if a field is just html without any content
-  function isAllHtml(content) {
-    const strippedContent = content.replace(/<\/?[^>]+(>|$)/g, "").trim();
-    return strippedContent === "" && content.match(/<\/?[^>]+(>|$)/g) !== null;
-  }
+        const pitchPosition = Number(pitchPositions[0]);
+        const sentences = Array.from(
+            document.querySelectorAll(".sentence, .definition, .sentence-mobile"),
+        );
+        for (const sentence of sentences) {
+            for (const targetWord of sentence.getElementsByTagName("b")) {
+                targetWord.classList.add(getPitchType(pitchPosition));
+            }
+        }
 
-  // This function handles toggling definitions with click/key
-  function toggleDef(index) {
-    let dictNames = [];
-    if (`{{SelectionText}}`) dictNames.push("Text Selection");
-    if (`{{MainDefinition}}` && isAllHtml(`{{MainDefinition}}`) == false) dictNames.push("Primary Definition");
-    if (`{{Glossary}}`) dictNames.push("Glossaries");
-
-    const definitionContainer = document.querySelector(
-      ".main-def > .definition",
-    );
-
-    const indexDisplay = document.querySelector(".def-info");
-    indexDisplay.style.opacity = 1;
-
-    currentIndex = index % dictNames.length;
-    while (currentIndex < 0) currentIndex += dictNames.length;
-
-    indexDisplay.innerText = `${dictNames[currentIndex]} ${currentIndex + 1}/${
-      dictNames.length
-    }`;
-
-    if (dictNames[currentIndex].toLowerCase().includes("text selection")) {
-      definitionContainer.innerHTML = `{{SelectionText}}`;
-    }
-    else if (dictNames[currentIndex].toLowerCase().includes("primary definition")) {
-      definitionContainer.innerHTML = `<div id="primary">{{MainDefinition}}</div>`;
-      hideCorrectDefinition();
-    }
-    else if (dictNames[currentIndex].toLowerCase().includes("glossar"))
-      definitionContainer.innerHTML = `<div id="glossaries">{{Glossary}}</div>`;
-  }
-
-  function setUpDefToggle() {
-    const mainDefContainer = document.querySelector(".main-def");
-
-    const leftEdge = document.createElement("div");
-    const rightEdge = document.createElement("div");
-    leftEdge.classList.add("left-edge");
-    leftEdge.classList.add("tappable");
-    rightEdge.classList.add("right-edge");
-    rightEdge.classList.add("tappable");
-    mainDefContainer.appendChild(leftEdge);
-    mainDefContainer.appendChild(rightEdge);
-
-    let index = 0;
-
-    leftEdge.addEventListener("click", (e) => {
-      index -= 1;
-      toggleDef(index);
-    });
-
-    rightEdge.addEventListener("click", (e) => {
-      index += 1;
-      toggleDef(index);
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") index -= 1;
-      else if (e.key === "ArrowRight") index += 1;
-
-      toggleDef(index);
-    });
-  }
-
-  // By default, it's going to be SelectionText in that field, but what if it is empty i.e user has not selected any text?
-  function showCorrectDef() {
-    const selectionText = document.querySelector(".main-def > .definition");
-    if ((selectionText.innerHTML.trim() == "" && `{{MainDefinition}}`) && isAllHtml(`{{MainDefinition}}`) == false) {
-      selectionText.innerHTML = `<div id="primary">{{MainDefinition}}</div>`;
-    }
-    else if (selectionText.innerHTML.trim() == "" && (`{{MainDefinition}}` == "" || isAllHtml(`{{MainDefinition}}`) == true))
-      selectionText.innerHTML = `<div id="glossaries">{{Glossary}}</div>`;
+        const vocabElement = document.querySelector(".vocab");
+        if (vocabElement !== null) {
+            vocabElement.classList.add(getPitchType(pitchPosition));
+        }
     }
 
-  // This just handles clicking and showing images
-  function clickImage() {
-      const modalBg = document.querySelector(".modal-bg");
-      const imgPopup = document.querySelector(".img-popup");
-      const image = document.querySelector(".image img");
+    // Seperate Tags by space, and show them in their own boxes
+    function tweakHTML() {
+        // Split tags
+        const tagsContainer = document.querySelector(".tags-container");
+        const tags = `{{Tags}}`.split(" ");
+        if (tagsContainer) {
+            tagsContainer.innerHTML = "";
+            for (tag of tags) {
+                const tagElem = document.createElement("div");
+                tagElem.className = "tags";
+                tagElem.innerText = tag;
+                tagsContainer.appendChild(tagElem);
+            }
+        }
+    }
 
-      if (!image) return;
+    function groupMoras(kana) {
+        let currentChar = "";
+        let nextChar = "";
+        const groupedMoras = [];
+        const check = ["ァ", "ゥ", "ェ", "ォ", "ャ", "ュ", "ョ", "ィ", "ヮ", "ぁ", "ぅ", "ぇ", "ぉ", "ゃ", "ゅ", "ょ", "ぃ", "ゎ"];
 
-      image.addEventListener("click", () => {
-          const imgPopupContainer = document.createElement("div");
-          const imgPopupImg = document.createElement("img");
+        for (let i = 0; i < kana.length; i++) {
+            currentChar = kana[i];
+            nextChar = i < kana.length - 1 && kana[i + 1];
+            if (check.includes(nextChar)) {
+                groupedMoras.push(currentChar + nextChar);
+                i += 1;
+            } else {
+                groupedMoras.push(currentChar);
+            }
+        }
+        return groupedMoras;
+    }
 
-          imgPopupContainer.classList.add("img-popup-container");
-          imgPopupImg.src = image.src;
-          imgPopupImg.classList.add("img-popup-img");
+    function getPitchPattern(pitchPosition) {
+        // 0 = low
+        // 1 = high
+        // 2 = high to low
 
-          if (image.height > image.width) {
-              imgPopupContainer.style.height = "calc(100% - 20px)";
-              imgPopupContainer.style.width = "max-content";
-          }
-          imgPopup.innerHTML = "";
-          imgPopup.appendChild(imgPopupContainer);
-          imgPopupContainer.appendChild(imgPopupImg);
+        const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
+        const moras = groupMoras(kana);
+        let pattern = [];
 
-          document.body.classList.add("img-popup");
-          modalBg.style.display = "block";
-          imgPopupContainer.style.display = "flex";
-      });
+        if (pitchPosition === 0) {
+            // 平板
+            pattern = [
+                ...Array(moras[0].length).fill("0"),
+                ...Array(kana.length - moras[0].length).fill("1"),
+            ];
+        } else if (pitchPosition === 1) {
+            // 頭高
+            pattern = [
+                ...(moras[0].length === 2 ? ["1", "2"] : ["2"]),
+                ...Array(kana.length - moras[0].length).fill("0"),
+            ];
+        } else if (pitchPosition > 1) {
+            if (isOdaka(pitchPosition)) {
+                // 尾高
+                pattern = [
+                    ...Array(moras[0].length).fill("0"),
+                    ...Array(kana.length - moras[0].length - 1).fill("1"),
+                    "2",
+                ];
+            } else {
+                // 中高
+                let afterDrop = false;
+                for (let i = 0; i < moras.length; i++) {
+                    if (i === 0) {
+                        pattern = Array(moras[0].length).fill("0");
+                    } else if (i + 1 === pitchPosition) {
+                        pattern =
+                            moras[i].length === 2
+                                ? [...pattern, "1", "2"]
+                                : [...pattern, "2"];
+                        afterDrop = true;
+                    } else if (afterDrop) {
+                        pattern = [...pattern, ...Array(moras[i].length).fill("0")];
+                    } else {
+                        pattern = [...pattern, ...Array(moras[i].length).fill("1")];
+                    }
+                }
+            }
+        }
+        return pattern;
+    }
 
-      modalBg.addEventListener("click", () => {
-          document.body.classList.remove("img-popup");
-          modalBg.style.display = "none";
-          imgPopup.innerHTML = "";
-      });
-  }
+    function constructPitch() {
+        const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
+        const pitch = document.querySelector(".pitch");
+        const pitchTags = document.querySelector("#pitch-tags");
+        const pitchPositions = `{{PitchPosition}}`.match(/^\d+|\d+\b|\d+(?=\w)/g);
 
-  // Handles what you see when you hover over frequency dropdown icon
-  function frequencyHover() {
-      const hoverTrigger = document.querySelector('.freq-dropdown');
-      const frequencyElement = document.querySelector('.freq-list-container');
-      if (hoverTrigger === null) return;
+        if (!pitchPositions) {
+            pitch.innerHTML = `<div style="margin-right: -15px; display: inline;">${kana}</div>`;
+            return;
+        }
 
-      hoverTrigger.addEventListener('mouseenter', function() {
-          frequencyElement.innerHTML = `
+        const createPitchSpan = (pitchClass, pitchChar) => {
+            const pitchSpan = document.createElement("span");
+            const charSpan = document.createElement("span");
+            const lineSpan = document.createElement("span");
+
+            pitchSpan.classList.add(pitchClass);
+            charSpan.classList.add("pitch-char");
+            charSpan.innerText = pitchChar;
+            lineSpan.classList.add("pitch-line");
+
+            pitchSpan.appendChild(charSpan);
+            pitchSpan.appendChild(lineSpan);
+
+            return pitchSpan;
+        };
+
+        pitch.innerHTML = "";
+        pitchTags.innerHTML = "";
+        pitchTags.style.display = "inline-block";
+        let uniquePitchPositions = [...new Set(pitchPositions)];
+
+        const pitchList = document.createElement("ul");
+        const pitchTagList = document.createElement("ul");
+
+        for (let pitchPosition of uniquePitchPositions) {
+            const pitchTag = document.createElement("li");
+            pitchTag.textContent = pitchPosition;
+
+            const pattern = getPitchPattern(Number(pitchPosition));
+
+            const pitchItem = document.createElement("li");
+            pitchItem.classList.add("pitch-item");
+            pitchItem.classList.add(getPitchType(Number(pitchPosition)));
+
+            for (let i = 0; i < kana.length; i++) {
+                if (pattern[i] === "0")
+                    pitchItem.appendChild(createPitchSpan("pitch-low", kana[i]));
+                else if (pattern[i] === "1")
+                    pitchItem.appendChild(createPitchSpan("pitch-high", kana[i]));
+                else if (pattern[i] === "2")
+                    pitchItem.appendChild(createPitchSpan("pitch-to-drop", kana[i]));
+                else
+                    console.error(
+                        "pattern[i] found undefined value. pattern is",
+                        pattern,
+                    );
+            }
+            pitchTagList.appendChild(pitchTag);
+            pitchList.appendChild(pitchItem);
+        }
+
+        pitch.appendChild(pitchList);
+        pitchTags.appendChild(pitchTagList);
+    }
+
+
+    function isPrimaryEqualToGloss() {
+        const isJPMNConverted = document.querySelector(".definition li[data-details]");
+        if (isJPMNConverted) return false;
+        // single dict formatting
+        const isSingleDict = document.querySelectorAll("#glossaries > div > ol").length === 0;
+        if (isSingleDict) {
+            const primaryDictName = document.querySelector("#primary > div > i");
+            const glossariesDictName = document.querySelector("#glossaries > div > i");
+            // {glossary-brief} and {glossary-no-dictionary} formatting
+            if (!primaryDictName || !glossariesDictName) {
+                const primaryDict = document.querySelector("#primary > div > span");
+                const glossariesDict = document.querySelector("#glossaries > div > span");
+                return primaryDict.innerHTML === glossariesDict.innerHTML
+            }
+            return primaryDictName.textContent === glossariesDictName.textContent;
+        }
+
+        // multiple dicts
+        const primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
+        const glossariesDicts = document.querySelectorAll("#glossaries li[data-dictionary]");
+        return primaryDicts.length === glossariesDicts.length
+    }
+
+    // Removes Unnecessary definitions
+    function cleanUpDefinitions() {
+        const primary = document.getElementById("primary");
+        const glossaries = document.getElementById("glossaries");
+        if (primary && primary.textContent === "" ) {
+            primary.remove()
+        }
+        if (glossaries && glossaries.textContent === "") {
+            glossaries.remove()
+        }
+        else if (primary && glossaries && isPrimaryEqualToGloss()) {
+            glossaries.remove()
+        }
+    }
+
+    // Display definition corresponding to index
+    function updateDefDisplay() {
+        const definitions = document.querySelectorAll(
+            ".main-def > .definition > div"
+        );
+
+        let n_defs = definitions.length;
+        if (n_defs === 1) definitions[0].classList.remove("hidden");
+        if (n_defs <= 1) return;
+
+        let currentIndex = document.head.getAttribute("data-def-index");
+        currentIndex = currentIndex % n_defs;
+        while (currentIndex < 0) currentIndex += n_defs;
+
+        for (let idx = 0; idx < n_defs; idx++) {
+            definitions[idx].classList.add("hidden");
+        }
+        definitions[currentIndex].classList.remove("hidden");
+
+        const defDisplayName = definitions[currentIndex].getAttribute("data-display-name")
+        const indexDisplay = document.querySelector(".def-info");
+        indexDisplay.style.opacity = 1;
+        indexDisplay.innerText = `${defDisplayName} ${currentIndex + 1}/${n_defs}`;
+    }
+
+    function setUpDefToggle() {
+        document.head.setAttribute("data-def-index", 0);
+        cleanUpDefinitions();
+
+        // hide all but first definition
+        let definitions = document.querySelectorAll(".main-def > .definition > div");
+        Array.from(definitions).slice(1).forEach( def => { def.classList.add("hidden"); });
+        // no need for toggling on less than 2 definitions
+        if (definitions.length < 2) return;
+
+        let mainDefContainer = document.querySelector(".main-def");
+        const leftEdge = document.createElement("div");
+        const rightEdge = document.createElement("div");
+        leftEdge.classList.add("left-edge");
+        leftEdge.classList.add("tappable");
+        rightEdge.classList.add("right-edge");
+        rightEdge.classList.add("tappable");
+        mainDefContainer.appendChild(leftEdge);
+        mainDefContainer.appendChild(rightEdge);
+
+        const changeIndex = (value) => {
+            // sync index between clicks and arrowkeys
+            index = Number(document.head.getAttribute("data-def-index"));
+            index += value;
+            document.head.setAttribute("data-def-index", index);
+            updateDefDisplay();
+        };
+
+        leftEdge.addEventListener("click", (e) => changeIndex(-1));
+        rightEdge.addEventListener("click", (e) => changeIndex(1));
+
+        // Add key listener only once per session
+        if (document.head.classList.contains("has-listener")) return;
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") changeIndex(-1);
+            else if (e.key === "ArrowRight") changeIndex(1);
+        });
+
+        document.head.classList.add("has-listener");
+    }
+
+    // This just handles clicking and showing images
+    function clickImage() {
+        const modalBg = document.querySelector(".modal-bg");
+        const imgPopup = document.querySelector(".img-popup");
+        const image = document.querySelector(".image img");
+
+        if (!image) return;
+
+        image.addEventListener("click", () => {
+            const imgPopupContainer = document.createElement("div");
+            const imgPopupImg = document.createElement("img");
+
+            imgPopupContainer.classList.add("img-popup-container");
+            imgPopupImg.src = image.src;
+            imgPopupImg.classList.add("img-popup-img");
+
+            if (image.height > image.width) {
+                imgPopupContainer.style.height = "calc(100% - 20px)";
+                imgPopupContainer.style.width = "max-content";
+            }
+            imgPopup.innerHTML = "";
+            imgPopup.appendChild(imgPopupContainer);
+            imgPopupContainer.appendChild(imgPopupImg);
+
+            document.body.classList.add("img-popup");
+            modalBg.style.display = "block";
+            imgPopupContainer.style.display = "flex";
+        });
+
+        modalBg.addEventListener("click", () => {
+            document.body.classList.remove("img-popup");
+            modalBg.style.display = "none";
+            imgPopup.innerHTML = "";
+        });
+    }
+
+    // Handles what you see when you hover over frequency dropdown icon
+    function frequencyHover() {
+        const hoverTrigger = document.querySelector('.freq-dropdown');
+        const frequencyElement = document.querySelector('.freq-list-container');
+        if (hoverTrigger === null) return;
+
+        hoverTrigger.addEventListener('mouseenter', function () {
+            frequencyElement.innerHTML = `
               {{#Frequency}} {{Frequency}} {{/Frequency}}
           `;
-          frequencyElement.classList.add('visible');
-      });
+            frequencyElement.classList.add('visible');
+        });
 
-      hoverTrigger.addEventListener('mouseleave', function() {
-          frequencyElement.classList.remove('visible');
-      });
-  }
-
-  // Sets the height of dhLeft, dhRight, defHeader as a whole
-  function setDHHeight() {
-    var dhLeft = document.querySelector('.dh-left');
-    var dhRight = document.querySelector('.dh-right .image img');
-    var defHeader = document.querySelector('.def-header')
-
-    if (dhLeft && dhRight) {
-        var dhLeftHeight = dhLeft.offsetHeight;
-        dhRight.style.maxHeight = `${dhLeftHeight}px`;
-        defHeader.style.maxHeight = `${dhLeftHeight}px`;
+        hoverTrigger.addEventListener('mouseleave', function () {
+            frequencyElement.classList.remove('visible');
+        });
     }
-  }
 
-  // Hides the dictionary user selected in MainDefinition in Glossary field, if any
-  function hideCorrectDefinition() {
-    let primaryElement = document.querySelector("#primary li[data-dictionary]");
-    console.log(primaryElement);
+    // Sets the height of dhLeft, dhRight, defHeader as a whole
+    function setDHHeight() {
+        var dhLeft = document.querySelector('.dh-left');
+        var dhRight = document.querySelector('.dh-right .image img');
+        var defHeader = document.querySelector('.def-header')
 
-    if (primaryElement) {
-        let dictionaryValue = primaryElement.getAttribute("data-dictionary");
+        if (dhLeft && dhRight) {
+            var dhLeftHeight = dhLeft.offsetHeight;
+            dhRight.style.maxHeight = `${dhLeftHeight}px`;
+            defHeader.style.maxHeight = `${dhLeftHeight}px`;
+        }
+    }
+
+    // Set info width to expression box's width
+    // Prevents pitch patterns to further grow the expression box
+    function freezeInfoWidth() {
+        var info = document.querySelector('.info');
+        const infoWidth = info.offsetWidth;
+        info.style.maxWidth = `${infoWidth}px`;
+    }
+
+    // Hides the dictionaries user selected in MainDefinition in Glossary field, if any
+    function hideCorrectDefinition() {
+        // Do nothing if css rule already exists
+        if (document.querySelector("blockquote.main-def style")) return;
+
+        let primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
+        if (primaryDicts.length === 0) return;
+
         let style = document.createElement('style');
-
         style.type = 'text/css';
-        const cssRules = `#glossaries li[data-dictionary="${dictionaryValue}"] { display:none !important; }`
+
+        const cssSelector = Array.from(primaryDicts).map((dict) =>
+            `#glossaries li[data-dictionary="${dict.getAttribute("data-dictionary")}"]`
+        ).join(", ");
+        const cssRules = `${cssSelector} { display:none !important; }`;
         style.appendChild(document.createTextNode(cssRules));
-        document.head.appendChild(style);
+
+        let defContainer = document.querySelector("blockquote.main-def");
+        defContainer.appendChild(style);
     }
-  }
-  
-  // Set info width to expression box's width
-  // Prevents pitch patterns to further grow the expression box
-  function freezeInfoWidth() {
-    var info = document.querySelector('.info');
-    var infoWidth = info.offsetWidth;
-    info.style.maxWidth = `${infoWidth}px`;
-  }
 
-  // Initialize all functions!!!
-  function initialize() {
-    tweakHTML();
-    paintTargetWord();
-    freezeInfoWidth();
-    constructPitch();
-    showCorrectDef();
-    setUpDefToggle();
-    clickImage();
-    frequencyHover();
-    setDHHeight();
-    hideCorrectDefinition();
-  }
+    // Moves Primary Dicts into the same list
+    function movePrimaryDicts() {
+        let primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
+        let firstList = document.querySelector("#primary .yomitan-glossary > ol:has( li[data-dictionary])");
+        for (let idx = 1; idx < primaryDicts.length; idx++) {
+            firstList.appendChild(primaryDicts[idx]);
+        }
+    }
 
-  initialize();
+    // Initialize all functions!!!
+    function initialize() {
+        tweakHTML();
+        paintTargetWord();
+        constructPitch();
+        setUpDefToggle();
+        clickImage();
+        frequencyHover();
+        setDHHeight();
+        freezeInfoWidth();
+        hideCorrectDefinition();
+        movePrimaryDicts();
+    }
+
+    initialize();
 </script>
