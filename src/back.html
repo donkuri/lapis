@@ -126,6 +126,11 @@
         );
     }
 
+    function pitchCategories() {
+        types = "(heiban|atamadaka|nakadaka|odaka|kifuku)"
+        return [...`{{PitchPosition}}`.matchAll(types)].map( m => m[0]);
+    }
+
     function endsWithAny(suffixes, string) {
         for (let suffix of suffixes) {
             if (string.endsWith(suffix)) return true;
@@ -134,6 +139,12 @@
     }
 
     function getPitchType(pitchPosition) {
+        const pitchTypes = pitchCategories();
+        const canBeKifuku = pitchTypes.includes("kifuku")
+        if (canBeKifuku) {
+            return pitchPosition === 0 ? "heiban" : "kifuku";
+        }
+
         if (
             endsWithAny(
                 ["い", "う", "く", "す", "つ", "ぶ", "む", "る"],
@@ -143,16 +154,18 @@
             if (pitchPosition === 0) {
                 return "heiban";
             } else {
-                return "kifuku";
+                if (pitchTypes.length == 0 || canBeKifuku) {
+                    return "kifuku";
+                }
             }
-        } else {
-            if (pitchPosition === 0) {
-                return "heiban";
-            } else if (pitchPosition === 1) {
-                return "atamadaka";
-            } else if (pitchPosition > 1) {
-                return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
-            }
+        }
+
+        if (pitchPosition === 0) {
+            return "heiban";
+        } else if (pitchPosition === 1) {
+            return "atamadaka";
+        } else if (pitchPosition > 1) {
+            return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
         }
     }
 
