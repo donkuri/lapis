@@ -525,7 +525,7 @@ footer {
     position: relative;
 }
 .mobile .def-header {
-  --max-word-to-picture-ratio: var(--mobile-max-word-to-picture-ratio);
+    --max-word-to-picture-ratio: var(--mobile-max-word-to-picture-ratio);
 }
 
 .dh-left {
@@ -549,9 +549,6 @@ footer {
     position: relative;
     font-size: 0; /* weird hack needed to make the image stay in line with the .def-header */
     flex: 0 1 auto;
-}
-.has-picture .dh-right {
-    min-width: min(var(--picture-max-width), calc(100% - var(--max-word-to-picture-ratio)));
 }
 
 /* dynamic margins that :
