@@ -506,6 +506,7 @@
 
     // Set info width to expression box's width
     // Prevents pitch patterns to further grow the expression box
+    // !! Must be called before constructPitch() !!
     function freezeInfoWidth() {
         var info = document.querySelector('.info');
         const infoWidth = info.offsetWidth;
@@ -546,12 +547,12 @@
     function initialize() {
         tweakHTML();
         paintTargetWord();
+        freezeInfoWidth();
         constructPitch();
         setUpDefToggle();
         clickImage();
         frequencyHover();
         setDHHeight();
-        freezeInfoWidth();
         hideCorrectDefinition();
         movePrimaryDicts();
     }
