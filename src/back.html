@@ -21,10 +21,11 @@
 </header>
 
 <main lang="ja">
-    <div class="template">
+    <div class="template{{#Picture}} has-picture{{/Picture}}">
 
         <!-- The first row (vocab box+picture) -->
         <div class="def-header">
+            <div class="dh-shrinkable"></div>
             <div class="dh-left">
                 <div class="show-furigana vocab">
                     {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
@@ -55,6 +56,7 @@
                 <div class="image tappable {{Tags}}">{{Picture}}</div>
                 {{/Picture}}
             </div>
+            <div class="dh-shrinkable"></div>
         </div>
 
         <br>
@@ -519,6 +521,15 @@
         }
     }
 
+    // Set info width to expression box's width
+    // Prevents pitch patterns to further grow the expression box
+    // !! Must be called before constructPitch() !!
+    function freezeInfoWidth() {
+        var info = document.querySelector('.info');
+        const infoWidth = info.offsetWidth;
+        info.style.maxWidth = `${infoWidth}px`;
+    }
+
     // Hides the dictionaries user selected in MainDefinition in Glossary field, if any
     function hideCorrectDefinition() {
         // Do nothing if css rule already exists
@@ -553,6 +564,7 @@
     function initialize() {
         tweakHTML();
         paintTargetWord();
+        freezeInfoWidth();
         constructPitch();
         setUpDefToggle();
         clickImage();
