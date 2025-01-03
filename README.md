@@ -75,6 +75,7 @@ To use Lapis, first download the example deck from [Releases](https://github.com
 | IsClickCard        |                                                                                                                                                            |
 | IsSentenceCard     |                                                                                                                                                            |
 | PitchPosition      | `{pitch-accent-positions}`                                                                                                                                 |
+| PitchCategories    | `{pitch-accent-categories}`                                                                                                                                |
 | Frequency          | `{frequencies}`                                                                                                                                            |
 | FreqSort           | `{frequency-harmonic-rank}`                                                                                                                                |
 | MiscInfo           |                                                                                                                                                            |

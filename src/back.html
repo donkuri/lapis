@@ -122,8 +122,13 @@
         const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
         return (
             kana !== null &&
-            kana.replace(/[ァゥェォャュョィヮぁぅぇぉゃゅょぃゎ]/g, "").length === pitchNumber
+            kana.replace(/[ァィゥェォャュョヮぁぃぅぇぉゃゅょゎ]/g, "").length === pitchNumber
         );
+    }
+
+    function getPitchCategories() {
+        const validTypes = "(heiban|atamadaka|nakadaka|odaka|kifuku)";
+        return [...`{{PitchCategories}}`.matchAll(validTypes)].map(m => m[0]);
     }
 
     function endsWithAny(suffixes, string) {
@@ -133,26 +138,26 @@
         return false;
     }
 
+    function hasVerbOrAdjEnding() {
+        return endsWithAny(
+            ["い", "う", "く", "す", "つ", "ぶ", "む", "る"],
+            "{{Expression}}".replace("</div>", "")
+        );
+    }
+
     function getPitchType(pitchPosition) {
-        if (
-            endsWithAny(
-                ["い", "う", "く", "す", "つ", "ぶ", "む", "る"],
-                "{{Expression}}".replace("</div>", ""),
-            )
-        ) {
-            if (pitchPosition === 0) {
-                return "heiban";
-            } else {
-                return "kifuku";
-            }
-        } else {
-            if (pitchPosition === 0) {
-                return "heiban";
-            } else if (pitchPosition === 1) {
-                return "atamadaka";
-            } else if (pitchPosition > 1) {
-                return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
-            }
+        const pitchCategories = getPitchCategories();
+        const canBeKifuku = pitchCategories.includes("kifuku");
+        if (canBeKifuku || (pitchCategories.length == 0 && hasVerbOrAdjEnding())) {
+            return pitchPosition === 0 ? "heiban" : "kifuku";
+        }
+
+        if (pitchPosition === 0) {
+            return "heiban";
+        } else if (pitchPosition === 1) {
+            return "atamadaka";
+        } else if (pitchPosition > 1) {
+            return isOdaka(pitchPosition) ? "odaka" : "nakadaka";
         }
     }
 
@@ -197,7 +202,7 @@
         let currentChar = "";
         let nextChar = "";
         const groupedMoras = [];
-        const check = ["ァ", "ゥ", "ェ", "ォ", "ャ", "ュ", "ョ", "ィ", "ヮ", "ぁ", "ぅ", "ぇ", "ぉ", "ゃ", "ゅ", "ょ", "ぃ", "ゎ"];
+        const check = ["ァ", "ィ", "ゥ", "ェ", "ォ", "ャ", "ュ", "ョ", "ヮ", "ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "ゃ", "ゅ", "ょ", "ゎ"];
 
         for (let i = 0; i < kana.length; i++) {
             currentChar = kana[i];

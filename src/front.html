@@ -2,10 +2,10 @@
 <header style="visibility: hidden"></header>
 
 <main>
-    <!--------- front-vocab card ---------->
-    {{^IsSentenceCard}} {{^IsHintCard}} {{^IsClickCard}}
+    <!--------- Vocab card ---------->
+    {{^IsSentenceCard}} {{^IsWordAndSentenceCard}} {{^IsClickCard}}
     <div lang="ja" class="front-vocab">{{Expression}}</div>
-    {{/IsClickCard}} {{/IsHintCard}} {{/IsSentenceCard}}
+    {{/IsClickCard}} {{/IsWordAndSentenceCard}} {{/IsSentenceCard}}
 
     <!------- Sentence card --------->
     {{#IsSentenceCard}}
@@ -16,13 +16,13 @@
     {{/IsSentenceCard}}
 
     <!--------- Hint card ----------->
-    {{#IsHintCard}}
+    {{#IsWordAndSentenceCard}}
     <div lang="ja" class="front-vocab">{{Expression}}</div>
     <div id="hint">
         {{#SentenceFurigana}} {{kanji:SentenceFurigana}} {{/SentenceFurigana}}
         {{^SentenceFurigana}} {{kanji:Sentence}} {{/SentenceFurigana}}
     </div>
-    {{/IsHintCard}}
+    {{/IsWordAndSentenceCard}}
 
     <!-------- Click card ----------->
     {{#IsClickCard}}
