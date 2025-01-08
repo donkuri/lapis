@@ -426,6 +426,9 @@ header {
 }
 
 /* Hide NFSW Images -- make sure you use the tag `NSFW` EXACTLY */
+.NSFW {
+    overflow: hidden;
+}
 .NSFW img {
     filter: blur(30px);
     transition: filter 0.2s;
