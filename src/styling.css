@@ -243,6 +243,7 @@ header {
 }
 
 .top-container {
+    font-family: var(--font-sans);
     max-width: calc(var(--max-width) + 20px);
     margin: 0px auto;
     width: calc(100% - 20px);
@@ -256,7 +257,6 @@ header {
 }
 
 .freq-list-container {
-    font-family: var(--font-sans);
     display: none;
     position: absolute;
     top: 100%;
@@ -278,6 +278,11 @@ header {
 
 .freq-dropdown:hover .freq-list-container {
     display: block;
+}
+
+main {
+    width: min(var(--max-width), calc(100% - 20px));
+    margin-inline: auto;
 }
 
 /* Info (audio, reading) */
@@ -311,9 +316,10 @@ header {
 }
 
 #pitch-tags {
-    color: var(--bg-color);
-    font-family: var(--font-serif);
     background-color: var(--fg-color);
+    color: var(--bg-color);
+    font-family: var(--font-sans);
+    font-weight: 500;
     display: none;
     vertical-align: top;
     padding: 1px 3px;
@@ -339,47 +345,44 @@ header {
     display: inline;
 }
 
-.pitch ul>li:not(:last-child)::after,
-#pitch-tags ul>li:not(:last-child)::after {
-    content: "・";
-}
-
 .pitch ul>li:not(:last-child)::after {
+    content: "・";
     color: var(--fg-color);
 }
 
 #pitch-tags ul>li:not(:last-child)::after {
+    content: "・";
     color: var(--bg-color);
+    font-size: 0.8em;
 }
 
 /* Definition container */
 .main-def {
-    max-width: var(--max-width);
+    background-color: var(--bg-elevated);
+    font-family: var(--font-sans);
     font-size: var(--main-def-size);
     line-height: 1.75em;
-    margin: 25px auto;
-    width: calc(100% - 20px);
+    text-align: left;
+    border-left: 5px solid #ccc;
+    padding: 5px 10px;
+    margin: 5px auto;
+    overflow: hidden;
     position: relative;
-    display: block;
 }
 
 /* Definition info display */
-.def-info-container {
-    display: block;
-    max-width: var(--max-width);
-    width: calc(100% - 20px);
-    position: relative;
-    margin: 0 auto;
-}
-
 .def-info {
     font-family: var(--font-sans);
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 0.9rem;
     color: var(--fg-subtle);
+    font-size: 0.9rem;
+    text-align: right;
+    margin-right: 1em;
     pointer-events: none;
+    visibility: hidden;
+}
+
+.mobile .def-info {
+    margin-bottom: -5px;
 }
 
 /* MainDefinition */
@@ -389,19 +392,33 @@ header {
     max-width: 100%;
 }
 
-/* Definition box */
-.def-blockquote {
-    font-family: var(--font-sans);
-    background-color: var(--bg-elevated);
-    display: block;
-    max-width: min(var(--max-width), calc(100% - 20px));
-    text-align: left;
-    align-items: left;
-    justify-content: left;
-    border-left: 5px solid #ccc;
-    overflow: hidden;
-    padding: 5px 10px;
-    position: relative;
+/* Definition toggle css */
+.edge {
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.edge:hover {
+    background-color: var(--bg-inset);
+}
+
+#edge-prev {
+    left: 0;
+    border-radius: 8px 0px 0px 8px;
+}
+
+#edge-next {
+    right: 0;
+    border-radius: 0px 8px 8px 0px;
+}
+
+/* Hide edges when not needed */
+.edge:has(~ .definition > :last-child:first-child) {
+    display: none;
 }
 
 /* Primary Image */
@@ -474,39 +491,31 @@ header {
 }
 
 /* Hide NFSW Images -- make sure you use the tag `NSFW` EXACTLY */
-.NSFW img {
+.NSFW img, .nsfw img {
     filter: blur(30px);
     transition: filter 0.2s;
-}
-
-.NSFW img:hover {
-    filter: blur(0px);
-    transition: filter 0.2s;
+    &:hover {
+        filter: blur(0px);
+    }
 }
 
 /* Back sentence */
-.sentence {
+.sentence, .sentence-mobile {
     line-height: 1.5;
     font-size: var(--back-sentence-font-size);
     display: inline-block;
-    width: calc(100% - 20px);
-    max-width: var(--max-width);
+    /* show furigana on hover */
+    & rt {
+        visibility: hidden;
+    }
+    & b rt, & ruby:hover rt {
+        visibility: visible;
+    }
 }
 
-.sentence-mobile {
+.mobile .sentence, 
+html:not(.mobile) .sentence-mobile {
     display: none;
-}
-
-.mobile .sentence {
-    display: none;
-}
-
-.mobile .sentence-mobile {
-    line-height: 1.5;
-    font-size: var(--back-sentence-font-size);
-    display: inline-block;
-    width: calc(100% - 20px);
-    max-width: var(--max-width);
 }
 
 /* Footer */
@@ -553,16 +562,6 @@ footer {
     font-size: 9px;
 }
 
-/* Popup CSS */
-.popup {
-    font-family: var(--font-sans);
-    background-color: var(--bg-elevated);
-    display: block;
-    border-radius: 8px;
-    padding: 10px;
-    max-width: min(var(--max-width), calc(100% - 20px));
-}
-
 /* Definition Header */
 .def-header {
     display: flex;
@@ -570,8 +569,9 @@ footer {
     justify-content: center;
     align-items: center;
     max-width: 820px;
-    margin: auto;
+    margin-inline: auto;
     position: relative;
+    gap: min(20px, 2vw);
 }
 
 .dh-left {
@@ -584,7 +584,6 @@ footer {
 }
 
 .dh-right {
-    padding-left: 20px;
     max-width: 400px;
     position: relative;
     font-size: 0;
@@ -595,6 +594,9 @@ footer {
     background: none;
     padding: 0em;
     border-radius: 0px;
+}
+
+.mobile .dh-left:has(~ .dh-right) {
     max-width: 60vw;
 }
 
@@ -604,6 +606,10 @@ footer {
 
 /* Misc. info */
 .misc-info {
+    font-family: var(--font-sans);
+    background-color: var(--bg-elevated);
+    border-radius: 8px;
+    padding: 10px;
     margin: 0 auto;
 }
 
@@ -614,17 +620,8 @@ footer {
 /* ----- Misc ----- */
 
 /* Furigana */
-.show-furigana>ruby rt {
-    visibility: visible;
-}
-
 ruby rt {
     user-select: none;
-    visibility: hidden;
-}
-
-ruby:hover rt {
-    visibility: visible;
 }
 
 /* Bold */
@@ -633,12 +630,17 @@ b {
     font-weight: 600;
 }
 
-b>ruby rt {
-    opacity: 1;
-}
-
 .mobile b {
     font-weight: 400;
+}
+
+/* Hide scrollbar */
+.card {
+    -ms-overflow-style: none;
+    scrollbar-width: 0;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 /* Dropdown */
@@ -712,33 +714,6 @@ summary {
 
 .kifuku {
     color: var(--kifuku);
-}
-
-/* Definition toggle css */
-.left-edge,
-.right-edge {
-    position: absolute;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    cursor: pointer;
-    opacity: 0.4;
-}
-
-.left-edge {
-    left: 0;
-    border-radius: 8px 0px 0px 8px;
-}
-
-.right-edge {
-    right: 0;
-    border-radius: 0px 8px 8px 0px;
-}
-
-.left-edge:hover,
-.right-edge:hover {
-    background-color: var(--bg-inset);
-    cursor: pointer;
 }
 
 /* Format Definitions */
@@ -874,16 +849,11 @@ ol li[data-details="新和英"] details.glossary-text__details .glossary-text__s
     content: ") ";
 }
 
-/* Show definition furigana */
-.def-blockquote rt {
-    visibility: visible;
-}
-
-/* Lessen def-blockquote padding */
-.def-blockquote {
+/* Lessen main-def padding */
+.main-def {
     padding-block: .5em;
 }
-.def-blockquote ol {
+.main-def ol {
     margin-block: 0em;
 }
 .definition ol:has(> li[data-dictionary]),

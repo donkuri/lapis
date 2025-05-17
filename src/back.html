@@ -19,90 +19,84 @@
 </header>
 
 <main lang="ja">
-    <div class="template">
+    <!-- The first row (vocab box+picture) -->
+    <div class="def-header">
+        <div class="dh-left">
+            <div class="vocab">
+                {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
+                {{^ExpressionFurigana}}{{Expression}}{{/ExpressionFurigana}}
+            </div>
 
-        <!-- The first row (vocab box+picture) -->
-        <div class="def-header">
-            <div class="dh-left">
-                <div class="show-furigana vocab">
-                    {{#ExpressionFurigana}}{{furigana:ExpressionFurigana}}{{/ExpressionFurigana}}
-                    {{^ExpressionFurigana}}{{Expression}}{{/ExpressionFurigana}}
+            <!-- Reading + Pitch Accent -->
+            <div class="info">
+                <div class="pitch">
+                    {{#ExpressionFurigana}}{{kana:ExpressionFurigana}}{{/ExpressionFurigana}}
+                    {{^ExpressionFurigana}}{{ExpressionReading}}{{/ExpressionFurigana}}
                 </div>
 
-                <!-- Reading + Pitch Accent -->
-                <div class="info">
-                    <div class="pitch">
-                        {{#ExpressionFurigana}}{{kana:ExpressionFurigana}}{{/ExpressionFurigana}}
-                        {{^ExpressionFurigana}}{{ExpressionReading}}{{/ExpressionFurigana}}
-                    </div>
-
-                    <!-- Pitch Accent -->
-                    {{#PitchPosition}}
-                    <span id="pitch-tags" class="tags"> {{PitchPosition}} </span>
-                    {{/PitchPosition}}
-                    <br />
-                    <div class="audio-buttons">{{ExpressionAudio}} {{SentenceAudio}}</div>
-                </div>
-            </div>
-
-            <!-- Image -->
-            {{#Picture}}
-            <div class="dh-right">
-                <div class="image tappable {{Tags}}">{{Picture}}</div>
-            </div>
-            {{/Picture}}
-        </div>
-
-        <br>
-        <div class="sentence">
-            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
-        </div>
-
-        <!-- The entire definition blockquote -->
-        <div class="def-info-container">
-            <div class="def-info"></div>
-        </div>
-        <blockquote class="main-def def-blockquote">
-            {{#DefinitionPicture}}
-            <div class="def-image tappable">{{DefinitionPicture}}</div>
-            {{/DefinitionPicture}}
-            <div class="definition">
-                {{#SelectionText}}
-                <div id="selection" data-display-name="Text Selection">{{SelectionText}}</div>
-                {{/SelectionText}}
-                {{#MainDefinition}}
-                <div id="primary" data-display-name="Primary Definition">{{MainDefinition}}</div>
-                {{/MainDefinition}}
-                <div id="glossaries" data-display-name="Glossaries">{{Glossary}}</div>
-            </div>
-        </blockquote>
-
-        <!-- This is for the sentence that you see on mobile (positioned under definition), on Desktop, the sentence goes above the definition box, and this is hidden -->
-        <div class="sentence-mobile">
-            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
-        </div>
-
-        <!------- Image modal --------->
-        <div class="modal-bg tappable">
-            <div class="img-popup"></div>
-        </div>
-
-        {{#MiscInfo}}
-        <div style="text-align: center">
-            <div>
-                <details>
-                    <summary>Misc. info</summary>
-                    <div class="misc-info popup">
-                        === Details ===
-                        <br />
-                        {{MiscInfo}}
-                    </div>
-                </details>
+                <!-- Pitch Accent -->
+                {{#PitchPosition}}
+                <span id="pitch-tags" class="tags"> {{PitchPosition}} </span>
+                {{/PitchPosition}}
+                <br />
+                <div class="audio-buttons">{{ExpressionAudio}} {{SentenceAudio}}</div>
             </div>
         </div>
-        {{/MiscInfo}}
+
+        <!-- Image -->
+        {{#Picture}}
+        <div class="dh-right">
+            <div class="image tappable {{Tags}}">{{Picture}}</div>
+        </div>
+        {{/Picture}}
+    </div>
+
+    <br>
+    <div class="sentence">
+        {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+        {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+    </div>
+
+    <!-- The entire definition box -->
+    <div class="def-info">First Definition 1/?</div>
+    <div class="main-def">
+        <div class="edge tappable" id="edge-prev" onclick="changeIndex(-1)"></div>
+        <div class="edge tappable" id="edge-next" onclick="changeIndex(1)"></div>
+        {{#DefinitionPicture}}
+        <div class="def-image tappable">{{DefinitionPicture}}</div>
+        {{/DefinitionPicture}}
+        <div class="definition">
+            {{#SelectionText}}
+            <div id="selection" data-display-name="Text Selection">{{SelectionText}}</div>
+            {{/SelectionText}}
+            {{#MainDefinition}}
+            <div id="primary" data-display-name="Primary Definition">{{MainDefinition}}</div>
+            {{/MainDefinition}}
+            <div id="glossaries" data-display-name="Glossaries">{{Glossary}}</div>
+        </div>
+    </div>
+
+    <!-- This is for the sentence that you see on mobile (positioned under definition), on Desktop, the sentence goes above the definition box, and this is hidden -->
+    <div class="sentence-mobile">
+        {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+        {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+    </div>
+
+    <!------- Image modal --------->
+    <div class="modal-bg tappable">
+        <div class="img-popup"></div>
+    </div>
+
+    {{#MiscInfo}}
+    <details>
+        <summary>Misc. info</summary>
+        <div class="misc-info">
+            === Details ===
+            <br />
+            {{MiscInfo}}
+        </div>
+    </details>
+    {{/MiscInfo}}
 </main>
 
 <!----------- Footer ------------->
@@ -402,9 +396,16 @@
 
         const defDisplayName = definitions[currentIndex].dataset.displayName;
         const indexDisplay = document.querySelector(".def-info");
-        indexDisplay.style.opacity = 1;
+        indexDisplay.style.visibility = "visible";
         indexDisplay.innerText = `${defDisplayName} ${currentIndex + 1}/${n_defs}`;
     }
+
+    function changeIndex(value) {
+        // sync index between clicks and arrowkeys
+        index = Number(document.head.dataset.defIndex);
+        document.head.dataset.defIndex = index + value;
+        updateDefDisplay();
+    };
 
     function setUpDefToggle() {
         document.head.dataset.defIndex = 0;
@@ -416,27 +417,8 @@
         // no need for toggling on less than 2 definitions
         if (definitions.length < 2) return;
 
-        let mainDefContainer = document.querySelector(".main-def");
-        const leftEdge = document.createElement("div");
-        const rightEdge = document.createElement("div");
-        leftEdge.classList.add("left-edge");
-        leftEdge.classList.add("tappable");
-        rightEdge.classList.add("right-edge");
-        rightEdge.classList.add("tappable");
-        mainDefContainer.appendChild(leftEdge);
-        mainDefContainer.appendChild(rightEdge);
-
-        const changeIndex = (value) => {
-            // sync index between clicks and arrowkeys
-            index = Number(document.head.dataset.defIndex);
-            document.head.dataset.defIndex = index + value;
-            updateDefDisplay();
-        };
-
-        leftEdge.addEventListener("click", (e) => changeIndex(-1));
-        rightEdge.addEventListener("click", (e) => changeIndex(1));
-
-        // Add key listener only once per session
+        // Since <head> doesn't change through review sessions
+        // Adding and checking for this class ensure each card doesn't add its own listener
         if (document.head.classList.contains("has-listener")) return;
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowLeft") changeIndex(-1);
@@ -484,7 +466,7 @@
         });
     }
 
-    // Format plaintext frequencies into a list
+    // Format plaintext comma-separated frequencies into a list
     function formatFrequencyList() {
         const frequency = document.querySelector('.freq-list-container');
         if (!frequency) return;
@@ -528,7 +510,7 @@
         const cssRules = `${cssSelector} { display:none !important; }`;
         style.appendChild(document.createTextNode(cssRules));
 
-        let defContainer = document.querySelector("blockquote.main-def");
+        let defContainer = document.querySelector(".main-def");
         defContainer.appendChild(style);
     }
 
