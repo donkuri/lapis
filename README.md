@@ -125,7 +125,7 @@ The `Is...Card` fields let you select the kind of card you want to use by placin
 | IsSentenceCard        | The full sentence appears in the front instead of only the word       |
 | IsAudioCard           | Plays the sentence audio and shows the sentence with the word missing |
 
-When using audio cards, make sure to populate your sentence audio. It falls back to the word audio, however it will be inaccurate if it's conjugated.
+When using audio cards, make sure to populate your sentence audio. It falls back to the word audio, however this will be inaccurate when it's conjugated.
 
 ### How do I see all my definitions?
 
@@ -155,7 +155,7 @@ You can read the full explanation [here](https://animecards.site/ankicards/#the-
 This is partly inspired by JPMN and its method of organizing dictionaries. There are three main fields:
 
 - `SelectionText` – Use this when you want to highlight a specific sentence or definition from the Yomitan popup. If you don’t need to highlight anything, just leave it empty, it won’t affect the notetype.
-- `MainDefinition` – This is where you input the main dictionary you prefer. I highly recommend filling this in. If you're new to Japanese or mining on your own, it’s a good idea to start with a bilingual dictionary like [JMDict](https://github.com/yomidevs/jmdict-yomitan). Alternatively, you can use your preferred monolingual dictionaries (such as 三省堂, 大辞林, 大辞泉...) by selecting them when configuring Yomitan. **Please note, the dictionaries need to be installed in Yomitan before they can be selected.**
+- `MainDefinition` – This is where you input the main dictionary you prefer. I highly recommend filling this in. If you're new to Japanese or mining on your own, it’s a good idea to start with a bilingual dictionary like [JMDict](https://github.com/yomidevs/jmdict-yomitan). Alternatively, you can use your preferred monolingual dictionaries (such as 三省堂, 大辞林, 大辞泉...) by selecting them when configuring Yomitan. Lapis also supports having *multiple* dictionaries inside the field. **Please note, the dictionaries need to be installed in Yomitan before they can be selected.**
 - `Glossary` – This is where you place all of your dictionary definitions. We recommend having more than a single dictionary, see [here](https://donkuri.github.io/learn-japanese/setup/#adding-dictionaries).
 
 ### Will this work with tools like JL?
@@ -227,37 +227,16 @@ Change the hexcode to whatever color you want by inputting the hexcode correspon
 
 ### How can I move the sentence on mobile?
 
-If you want to move a sentence above or below the definition on mobile, follow these steps:
-
-1. Open the `Cards...` section of the card in Anki by going to `Browse` and selecting a Lapis card.
-2. In the `Cards...` editor, click on the `Back Template`.
-3. Look for the block of code like this:
-
-   ![First Block](assets/firstBlock.png)
-
-4. To move the sentence above the definition, move this block of code above the definition.
-
-   ![Second Block](assets/secondBlock.png)
-
-However, if you want to move the sentence from above to below the definition, reverse this process.
+You can control where the sentence is shown on both desktop and mobile by modifying the corresponding [lines](docs/user_settings.md#sentence-position) in the CSS styling.
+Set [--mobile-sentence-position](docs/user_settings.md#sentence-position) to `"above"` to get a layout similar to the desktop one.
 
 ### How can I change the blur effect?
 
-If you want the blur effect on images to be contained, please add the `overflow: hidden` setting to your `styling.css` file like so:
-
-```css
-/* Hide NFSW Images -- make sure you use the tag `NSFW` EXACTLY */
-.NSFW {
-    overflow: hidden;
-}
-.NSFW img {
-    filter: blur(30px);
-    transition: filter 0.2s;
-```
+Set [--nsfw-blur-contained](docs/user_settings.md#sentence-position) to `"on"` to contain the blur effect to the image box
 
 ### Why is the blur feature not working?
 
-Most likely it is because you are not using the right tag. Make sure your cards are tagged with `NSFW`, not `nsfw`, not `Nsfw`, it needs to be exactly `NSFW`. If you want to change the name of the tag, replace the `.NSFW` part above with `.name_tag`, where `name_tag` is the name of the tag you want to use.
+Most likely it is because you are not using the right tag. Make sure your cards are tagged with `NSFW`, `nsfw`, or `Nsfw`.
 
 ### I found a bug, where can I report it?
 

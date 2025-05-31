@@ -3,18 +3,6 @@
     --light-mode-bg-color: #fffaf0;
     --light-mode-fg-color: #333333;
 
-    /* Pitch colors */
-    --dark-mode-heiban: #39bae6;
-    --dark-mode-atamadaka: #ec464f;
-    --dark-mode-nakadaka: #ff8f40;
-    --dark-mode-odaka: #6cbf43;
-    --dark-mode-kifuku: #af85f4;
-    --light-mode-heiban: #1aa0ce;
-    --light-mode-atamadaka: #e92a35;
-    --light-mode-nakadaka: #ff6b03;
-    --light-mode-odaka: #61ad3b;
-    --light-mode-kifuku: #7e53c4;
-
     /* Bold color */
     --light-mode-bold: #4660f1;
     --dark-mode-bold: #fffd9e;
@@ -48,6 +36,29 @@
     --dark-mode-tooltip-hover-color: rgba(0, 0, 0, 0.9);
     --def-picture-size: 200px;
     --max-width: 800px;
+
+    /* See https://github.com/donkuri/lapis/tree/main/docs/user_settings.md for an overview of these variables */
+    --main-picture-position: "right";       /* "right", "left" */
+    --sentence-furigana : "hover";          /* "hover", "always", "off" */
+    --sentence-position : "above";          /* "above", "below" the definition box*/
+    --mobile-sentence-position : "below";
+    --mobile-audio-buttons: "default";      /* "default", "header" (inside vocabulary box) */
+    --nsfw-blur-contained: "off";            /* "on", "off" */
+    --open-misc-info: "off";                 /* "on", "off" */
+    --glossary-separator : "off";           /* "on" to separate dictionaries in definition box */
+    --jitendex-format: "full"; /* "minimal" or space-separated list of "no-tags", "no-sentence", "no-forms", "no-xref", "no-img" */
+
+    /* Pitch colors */
+    --dark-mode-heiban: #39bae6;
+    --dark-mode-atamadaka: #ec464f;
+    --dark-mode-nakadaka: #ff8f40;
+    --dark-mode-odaka: #6cbf43;
+    --dark-mode-kifuku: #af85f4;
+    --light-mode-heiban: #1aa0ce;
+    --light-mode-atamadaka: #e92a35;
+    --light-mode-nakadaka: #ff6b03;
+    --light-mode-odaka: #61ad3b;
+    --light-mode-kifuku: #7e53c4;
 
     font-size: var(--main-font-size);
 }
@@ -427,10 +438,14 @@ main {
     line-height: 1.75em;
     text-align: left;
     border-left: 5px solid #ccc;
-    padding: 5px 10px;
+    padding: .5em 10px;
     margin: 5px auto;
     overflow: hidden;
     position: relative;
+}
+
+.main-def ol {
+    margin-block: 0em;
 }
 
 /* Definition info display */
@@ -571,7 +586,8 @@ main {
 
 /* Hide NFSW Images -- make sure you use the tag `NSFW` EXACTLY */
 .NSFW img,
-.nsfw img {
+.nsfw img,
+.Nsfw img {
     filter: blur(30px);
     transition: filter 0.2s;
 
@@ -818,6 +834,16 @@ ul[data-sc-content="glossary"] {
     padding-left: 0;
 }
 
+[data-sc-content="glossary"] ~ ul,
+[data-sc-content="glossary"] ~ div {
+    line-height: normal;
+}
+
+[data-sc-content="attribution"], 
+[data-sc-content="graphic-attribution"] {
+    display: none;
+}
+
 /* reduce indentations of Jitendex for mobile */
 .mobile li[data-dictionary^="Jitendex"] ul,
 .mobile li[data-dictionary^="Jitendex"] ol,
@@ -849,7 +875,6 @@ span[data-sc-code] {
 }
 
 /* backwards compatibility code for JPMN definitions */
-
 li[data-details="JMdict (English)"] .dict-group__glossary>ul,
 li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content="glossary"],
 li[data-details="JMdict"] .dict-group__glossary>ul,
@@ -934,15 +959,6 @@ ol li[data-details="新和英"] details.glossary-text__details .glossary-text__s
     content: ") ";
 }
 
-/* Lessen main-def padding */
-.main-def {
-    padding-block: .5em;
-}
-
-.main-def ol {
-    margin-block: 0em;
-}
-
 .definition ol:has(> li[data-dictionary]),
 .definition ol:has(> li[data-details]) {
     padding-inline-start: 1.3em;
@@ -996,4 +1012,93 @@ li[data-dictionary="旺文社 全訳古語辞典"] div[data-sc小倉囲み-g] {
 }
 .nightMode [data-dictionary="旺文社 全訳古語辞典"] span[data-sc-rectr][data-sc-fill] {
     color: #1e1e1e !important;
+}
+
+/*
+ *  USER SETTINGS
+ *  Please modify the variables on the top of the file.
+ */
+settings[data-main-picture-position="left"] + #qa .def-header {
+    flex-flow : row-reverse;
+}
+
+settings[data-sentence-furigana="always"] + #qa .sentence rt,
+settings[data-sentence-furigana="always"] + #qa .sentence-mobile rt {
+    visibility: visible;
+}
+
+settings[data-sentence-furigana="off"] + #qa .sentence rt,
+settings[data-sentence-furigana="off"] + #qa .sentence-mobile rt {
+    display: none;
+}
+
+html.mobile settings[data-mobile-sentence-position="above"] + #qa .sentence-mobile,
+html:not(.mobile) settings[data-sentence-position="below"] + #qa .sentence {
+    display: none;
+}
+
+html.mobile settings[data-mobile-sentence-position="above"] + #qa .sentence,
+html:not(.mobile) settings[data-sentence-position="below"] + #qa .sentence-mobile {
+    display: block;
+}
+
+html.mobile settings[data-mobile-audio-buttons="header"] + #qa .audio-buttons {
+    position: static;
+}
+
+settings[data-nsfw-blur-contained="on"] + #qa .NSFW,
+settings[data-nsfw-blur-contained="on"] + #qa .nsfw,
+settings[data-nsfw-blur-contained="on"] + #qa .Nsfw {
+    overflow: hidden;
+}
+
+settings[data-glossary-separator="on"] + #qa .definition {
+    & li[data-dictionary]:not(:last-of-type),
+    & li[data-details]:not(:last-of-type) {
+        border-bottom: 1px dashed var(--fg-subtle);
+    }
+}
+
+settings[data-jitendex-format~="minimal"] + #qa .definition {
+    & [data-sc-content]:not([data-sc-content="glossary"]) {
+        display: none;
+    }
+}
+
+settings[data-jitendex-format~="minimal"] + #qa .definition,
+settings[data-jitendex-format~="no-tags"] + #qa .definition {
+    & [data-sc-code] {
+        display: none;
+    }
+    & ul {
+        padding-inline-start: 0px;
+        margin-block: 0px;
+        & > li::marker {
+            content: '';
+        }
+    }
+}
+
+settings[data-jitendex-format~="no-sentence"] + #qa .definition {
+    & [data-sc-content|="example-sentence"] {
+        display: none;
+    }
+}
+
+settings[data-jitendex-format~="no-forms"] + #qa .definition {
+    & [data-sc-content="forms"] {
+        display: none;
+    }
+}
+
+settings[data-jitendex-format~="no-xref"] + #qa .definition {
+    & [data-sc-content|="xref"] {
+        display: none;
+    }
+}
+
+settings[data-jitendex-format~="no-img"] + #qa .definition {
+    & [data-sc-content|="graphic"] {
+        display: none;
+    }
 }

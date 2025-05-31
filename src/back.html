@@ -532,13 +532,41 @@
         defContainer.appendChild(style);
     }
 
-    // Moves Primary Dicts into the same list
+    // Fixes list numbering when using multiple primary dicts
     function movePrimaryDicts() {
         let primaryDicts = document.querySelectorAll("#primary li[data-dictionary]");
-        let firstList = document.querySelector("#primary .yomitan-glossary > ol:has( li[data-dictionary])");
+        let firstList = document.querySelector("#primary .yomitan-glossary > ol:has(li[data-dictionary])");
         for (let idx = 1; idx < primaryDicts.length; idx++) {
             firstList.appendChild(primaryDicts[idx]);
         }
+    }
+
+    function userSettings() {
+        const oldSettings = document.querySelector("body > settings");
+        // Needed to give user instant feedback on their changes
+        oldSettings?.remove();
+
+        const settings = document.createElement("settings");
+        const options = [
+            "--main-picture-position",
+            "--sentence-furigana",
+            "--sentence-position",
+            "--mobile-sentence-position",
+            "--mobile-audio-buttons",
+            "--nsfw-blur-contained",
+            "--open-misc-info",
+            "--glossary-separator",
+            "--jitendex-format"
+        ];
+        for (let opt of options) {
+            const value = getComputedStyle(document.documentElement).getPropertyValue(opt).trim();
+            settings.setAttribute("data-" + opt.slice(2), value.slice(1, -1));
+            if (opt === "--open-misc-info" && value === "\"on\"") {
+                const miscInfo = document.querySelector("details:has(.misc-info)")
+                if (miscInfo) miscInfo.open = true;
+            }
+        }
+        document.body.insertBefore(settings, document.getElementById("qa"));
     }
 
     // Initialize all functions!!!
@@ -551,6 +579,7 @@
         setDHHeight();
         hideCorrectDefinition();
         movePrimaryDicts();
+        userSettings();
     }
 
     initialize();
