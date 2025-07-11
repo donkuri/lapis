@@ -567,19 +567,6 @@
         qa.parentElement.insertBefore(settings, qa);
     }
 
-    // Initialize all functions!!!
-    function initialize() {
-        splitTags();
-        handlePitches();
-        setUpDefToggle();
-        clickImages();
-        formatFrequencyList();
-        setDHHeight();
-        hideCorrectDefinition();
-        movePrimaryDicts();
-        userSettings();
-    }
-
     function togglePopup() {
         const modalBg = document.querySelector('.modal-bg');
         if (!modalBg) return;
@@ -610,12 +597,28 @@
         requestAnimationFrame(pollGamepad);
     }
 
-    let prevButtonStates = [];
-    window.addEventListener('gamepadconnected', (e) => {
-        // Initialize previous states for all buttons
-        prevButtonStates = new Array(e.gamepad.buttons.length).fill(false);
-        pollGamepad();
-    });
+    function setupGamepad() {
+        let prevButtonStates = [];
+        window.addEventListener('gamepadconnected', (e) => {
+            // Initialize previous states for all buttons
+            prevButtonStates = new Array(e.gamepad.buttons.length).fill(false);
+            pollGamepad();
+        });
+    }
+
+    // Initialize all functions!!!
+    function initialize() {
+        splitTags();
+        handlePitches();
+        setUpDefToggle();
+        clickImages();
+        formatFrequencyList();
+        setDHHeight();
+        hideCorrectDefinition();
+        movePrimaryDicts();
+        userSettings();
+        setupGamepad();
+    }
 
     initialize();
 </script>
