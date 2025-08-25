@@ -833,8 +833,8 @@ summary {
 
 /* Format Definitions */
 ul[data-sc-content="glossary"],
-[data-sc-content="forms"],
-[data-dictionary^="JMdict"]ul:not([data-sc-content]) {
+[data-sc-content="forms"] ul,
+[data-dictionary^="JMdict"] ul:not([data-sc-content]) {
     display: inline;
     list-style: none;
     padding-left: 0!important;
