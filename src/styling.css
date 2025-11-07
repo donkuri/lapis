@@ -510,12 +510,16 @@ main {
 }
 
 /* Primary Image */
-.image img, .image-alt img {
-  max-height: 400px;
-  width: auto;
+.image, .image-alt {
   border-radius: 5px;
-  cursor: pointer;
-  transition: filter 0.3s;
+
+  & img {
+    max-height: 400px;
+    width: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
 }
 
 .image-alt img {
