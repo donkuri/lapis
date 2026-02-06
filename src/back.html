@@ -184,8 +184,8 @@
         const fieldText = `{{text:PitchPosition}}`;
         // Pitch numbers not in a n+m pattern
         const pitchNumbers = fieldText.matchAll(/(?<!\d\+)\d+(?!\+\d)/g) || [];
-        // Custom pitch strings
-        const pitchStrings = fieldText.matchAll(/[あ-ヺ°ー\\＼ꜜ]+(・[あ-ヺ°ー\\＼ꜜ]+)*/g) || [];
+        // Custom pitch strings -- (?!:) to filter out JL pitch format
+        const pitchStrings = fieldText.matchAll(/[あ-ヺ°ー\\＼ꜜ]+(・[あ-ヺ°ー\\＼ꜜ]+)*(?!:)/g) || [];
         let pitches = [...pitchNumbers, ...pitchStrings]
             .sort((a, b) => a.index - b.index)
             .map(match => match ? parsePitch(match[0]) : null);
