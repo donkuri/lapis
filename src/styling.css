@@ -510,20 +510,30 @@ main {
 }
 
 /* Primary Image */
-.image img, .image-alt img {
-  max-height: 400px;
-  width: auto;
+.image, .image-alt {
   border-radius: 5px;
-  cursor: pointer;
-  transition: filter 0.3s;
+
+  & img {
+    max-height: 400px;
+    width: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
 }
 
-.image-alt img {
+.image-alt {
   margin: auto;
+  margin-bottom: 10px;
+  width: fit-content;
   max-width: 60%;
-  max-height: 250px;
-  border: solid var(--fg-subtle) 2px;
   font-size: 0;
+
+  & img {
+    max-height: 250px;
+    border: solid var(--fg-subtle) 2px;
+    box-sizing: border-box;
+  }
 }
 
 .image img:hover,
