@@ -53,8 +53,8 @@
         <br>
         <div class="sentence">
             {{#Picture}}<div class="image-alt tappable {{Tags}}">{{Picture}}</div>{{/Picture}}
-                {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-                {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
             <div class="audio-buttons-alt"></div>
         </div>
 
@@ -80,8 +80,8 @@
         <!-- Alternative Sentence Position -->
         <div class="sentence-alt">
             {{#Picture}}<div class="image-alt tappable {{Tags}}">{{Picture}}</div>{{/Picture}}
-                {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
-                {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
+            {{#SentenceFurigana}} {{furigana:SentenceFurigana}} {{/SentenceFurigana}}
+            {{^SentenceFurigana}} {{furigana:Sentence}} {{/SentenceFurigana}}
             <div class="audio-buttons-alt"></div>
         </div>
 
@@ -149,8 +149,17 @@
     }
 
     function handlePitches() {
-        const exprKana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
+        let exprKana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
         const isYomitan = document.querySelector("#glossaries .yomitan-glossary");
+        if (!exprKana) {
+            // Check if Expression is a kana word
+            exprKana = `{{kana:Expression}}`;
+            [...exprKana].forEach( (character) => {
+                const codePoint = character.codePointAt(0);
+                if (codePoint < 0x3041 || codePoint > 0x30FF) return;
+            });
+        }
+        exprKana = exprKana.trim();
 
         // Dirty single katakana to hiragana conversion
         const toHiragana = (kana) => {
@@ -197,6 +206,7 @@
             const downstep = graphPaths.findIndex(path => path.getAttribute("d").endsWith(",25"));
             pitches.push(downstep === undefined ? 0 : downstep + 1);
         });
+
         // NHK dictionary pitches
         const NHKDict = document.querySelector(
             '#glossaries li[data-dictionary=\"NHK日本語発音アクセント新辞典\"]');
@@ -208,7 +218,7 @@
         pitches = pitches.filter(pitch => pitch !== null);
         if (pitches.length < 1) return;
         if(!Array.isArray(pitches[0])) paintTargetWord(getPitchType(exprKana, pitches[0]));
-        constructPitch(new Set(pitches));
+        constructPitch(exprKana, new Set(pitches));
     }
 
     // Show the color
@@ -259,8 +269,7 @@
         return groupedMoras;
     }
 
-    function constructPitch(pitchPatterns) {
-        const kana = `{{kana:ExpressionFurigana}}` || `{{ExpressionReading}}`;
+    function constructPitch(kana, pitchPatterns) {
         const morae = groupMoras(kana);
         const pitch = document.querySelector(".pitch");
         const pitchTags = document.querySelector("#pitch-tags");
