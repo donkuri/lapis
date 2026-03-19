@@ -47,6 +47,7 @@
   --open-misc-info: "off"; /* "on", "off" */
   --glossary-separator: "off"; /* "on" to separate dictionaries in definition box */
   --jitendex-format: "full"; /* "minimal" or space-separated list of "no-tags", "no-sentence", "no-forms", "no-xref", "no-img" */
+  --img-ignore-display-scaling:  "on"; /* Modal images ignore display scaling */
 
   --mobile-main-picture-position: "right"; /* "left", "right", "alt" */
   --mobile-sentence-position: "below";

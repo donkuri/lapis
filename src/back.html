@@ -459,7 +459,10 @@
             image.addEventListener("click", () => {
                 const imgElement = document.createElement("img");
                 imgElement.src = image.src || image.querySelector("img").src;
-                imgElement.style.zoom = 1/window.devicePixelRatio;
+                if (lapis.dataset.imgIgnoreDisplayScaling === "on" ) {
+                    imgElement.style.maxHeight = image.naturalHeight/window.devicePixelRatio;
+                    imgElement.style.maxWidth = image.naturalWidth/window.devicePixelRatio;
+                }
                 modal.replaceChildren(imgElement);
                 modal.classList.add("active");
             });
@@ -538,7 +541,8 @@
             "--nsfw-blur-contained",
             "--open-misc-info",
             "--glossary-separator",
-            "--jitendex-format"
+            "--jitendex-format",
+            "--img-ignore-display-scaling"
         ];
         for (const opt of options) {
             let value = styles.getPropertyValue(opt);
