@@ -85,11 +85,6 @@
             <div class="audio-buttons-alt"></div>
         </div>
 
-        <!------- Image modal --------->
-        <div class="modal-bg tappable">
-            <div class="img-popup"></div>
-        </div>
-
         {{#MiscInfo}}
         <details>
             <summary>Misc. info</summary>
@@ -113,6 +108,9 @@
             {{/Tags}}
         </div>
     </footer>
+
+    <!------- Image modal --------->
+    <div id="modal" class="tappable"></div>
 </div>
 
 <!----------- Scripts ------------>
@@ -449,63 +447,25 @@
         document.head.classList.add("has-listener");
     }
 
-    // Image lightbox with fade transition similar to JPMN
     function clickImages() {
-        const modalBg = document.querySelector(".modal-bg");
-        const imgPopup = document.querySelector(".img-popup");
+        const modal = document.getElementById("modal");
         let images = Array.from(document.querySelectorAll(".image img, .image-alt img, .def-image img"));
         /* Disable image links that were opening in a browser window */
         const glossImageLinks = document.querySelectorAll(".definition a:has(img)");
         glossImageLinks.forEach(link => link.href = "");
 
-        images = [... images, ... glossImageLinks];
-        if(images.length < 1) return;
-        for (let image of images) {
+        // Add listeners to images
+        for (let image of [... images, ... glossImageLinks]) {
             image.addEventListener("click", () => {
-                const imgPopupContainer = document.createElement("div");
-                const imgPopupImg = document.createElement("img");
-
-                imgPopupContainer.classList.add("img-popup-container");
-                imgPopupImg.src = image.src || image.querySelector("img").src;
-                imgPopupImg.classList.add("img-popup-img");
-
-                if (image.height > image.width) {
-                    imgPopupContainer.style.height = "calc(100% - 20px)";
-                    imgPopupContainer.style.width = "max-content";
-                }
-
-                imgPopup.innerHTML = "";
-                imgPopup.appendChild(imgPopupContainer);
-                imgPopupContainer.appendChild(imgPopupImg);
-
-                // Force a reflow before adding active classes to ensure transitions work
-                void modalBg.offsetWidth;
-
-                // Show the modal background with fade transition
-                modalBg.style.display = "block";
-
-                // Force another reflow to ensure the display change takes effect before transition
-                void modalBg.offsetWidth;
-
-                modalBg.classList.add("active");
-                imgPopupContainer.classList.add("active");
-                document.body.classList.add("img-popup");
+                const imgElement = document.createElement("img");
+                imgElement.src = image.src || image.querySelector("img").src;
+                imgElement.style.zoom = 1/window.devicePixelRatio;
+                modal.replaceChildren(imgElement);
+                modal.classList.add("active");
             });
         }
 
-        modalBg.addEventListener("click", () => {
-            // Removes active classes to trigger fade-out transition
-            modalBg.classList.remove("active");
-            const activeContainer = document.querySelector(".img-popup-container.active");
-            if (activeContainer) {
-                activeContainer.classList.remove("active");
-            }
-            setTimeout(() => {
-                document.body.classList.remove("img-popup");
-                modalBg.style.display = "none";
-                imgPopup.innerHTML = "";
-            }, 300);
-        });
+        modal.addEventListener("click", () => modal.classList.remove("active"));
     }
 
     // Format plaintext comma-separated frequencies into a list
