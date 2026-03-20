@@ -460,8 +460,8 @@
                 const imgElement = document.createElement("img");
                 imgElement.src = image.src || image.querySelector("img").src;
                 if (lapis.dataset.imgIgnoreDisplayScaling === "on" ) {
-                    imgElement.style.maxHeight = image.naturalHeight/window.devicePixelRatio;
-                    imgElement.style.maxWidth = image.naturalWidth/window.devicePixelRatio;
+                    imgElement.style.maxHeight = `${image.naturalHeight/window.devicePixelRatio}px`;
+                    imgElement.style.maxWidth = `${image.naturalWidth/window.devicePixelRatio}px`;
                 }
                 modal.replaceChildren(imgElement);
                 modal.classList.add("active");
