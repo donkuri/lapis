@@ -460,8 +460,8 @@
                 const imgElement = document.createElement("img");
                 imgElement.src = image.src || image.querySelector("img").src;
                 if (lapis.dataset.imgIgnoreDisplayScaling === "on" ) {
-                    imgElement.style.maxHeight = `${image.naturalHeight/window.devicePixelRatio}px`;
-                    imgElement.style.maxWidth = `${image.naturalWidth/window.devicePixelRatio}px`;
+                    imgElement.style.height = `${image.naturalHeight/window.devicePixelRatio}px`;
+                    imgElement.style.width = "auto";
                 }
                 modal.replaceChildren(imgElement);
                 modal.classList.add("active");
@@ -542,7 +542,7 @@
             "--open-misc-info",
             "--glossary-separator",
             "--jitendex-format",
-            "--img-ignore-display-scaling"
+            "--img-ignore-display-scaling",
         ];
         for (const opt of options) {
             let value = styles.getPropertyValue(opt);
