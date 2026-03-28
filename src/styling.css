@@ -128,18 +128,22 @@
   --skogo-gendai-mark: #cccccc;
 }
 
-.android .nightMode {
+/* Ankidroid old review screen does not set data-bs-theme*/
+.android:not([data-bs-theme]) .nightMode {
   --bg-color: black;
   --fg-color: white;
 }
 
-.android .nightMode:not(.ankidroid_dark_mode) {
-  /* make it brighter since bg is black */
-  --bg-elevated: rgba(255, 255, 255, 0.06);
-}
-
+/* Ankidroid old review screen dark theme */
 .android .nightMode.ankidroid_dark_mode {
   --bg-color: #303030;
+}
+
+/* Ankidroid black theme */
+.android:not([data-bs-theme]) .nightMode:not(.ankidroid_dark_mode),
+.android[data-bs-theme="black"] .card {
+  /* make it brighter since bg is black */
+  --bg-elevated: rgba(255, 255, 255, 0.06);
 }
 
 .card:not(.nightMode) {
