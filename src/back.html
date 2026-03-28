@@ -459,9 +459,10 @@
             image.addEventListener("click", () => {
                 const imgElement = document.createElement("img");
                 imgElement.src = image.src || image.querySelector("img").src;
-                if (lapis.dataset.imgIgnoreDisplayScaling === "on" ) {
-                    imgElement.style.height = `${image.naturalHeight/window.devicePixelRatio}px`;
-                    imgElement.style.width = "auto";
+                const scaling = window.devicePixelRatio;
+                if (scaling !== 1 && lapis.dataset.imgIgnoreDisplayScaling === "on") {
+                    imgElement.style.maxHeight = `min(${image.naturalHeight/scaling}px, 100%)`;
+                    imgElement.style.maxWidth = `min(${image.naturalWidth/scaling}px, 100%)`;
                 }
                 modal.replaceChildren(imgElement);
                 modal.classList.add("active");
