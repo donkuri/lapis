@@ -487,14 +487,16 @@
 
     // Sets the height of dhVocab, dhImage, defHeader as a whole
     function setDHHeight() {
-        var dhVocab = document.querySelector('.dh-vocab');
-        var dhImage = document.querySelector('.dh-image img');
-        var defHeader = document.querySelector('.def-header');
+        const dhVocab = document.querySelector('.dh-vocab');
+        const dhImage = document.querySelector('.dh-image img');
+        const defHeader = document.querySelector('.def-header');
 
-        if (dhVocab && dhImage) {
-            var dhVocabHeight = dhVocab.offsetHeight;
+        if (!dhVocab || !dhImage) return;
+
+        while (dhImage.style.maxHeight !== `${dhVocab.offsetHeight}px`) {
+            const dhVocabHeight = dhVocab.offsetHeight;
             dhImage.style.maxHeight = `${dhVocabHeight}px`;
-            defHeader.style.maxHeight = `${dhVocabHeight}px`;
+            defHeader.style.height = `${dhVocabHeight}px`;
         }
     }
 
