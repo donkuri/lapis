@@ -487,14 +487,20 @@
 
     // Sets the height of dhVocab, dhImage, defHeader as a whole
     function setDHHeight() {
-        var dhVocab = document.querySelector('.dh-vocab');
-        var dhImage = document.querySelector('.dh-image img');
-        var defHeader = document.querySelector('.def-header');
+        const dhVocab = document.querySelector('.dh-vocab');
+        const dhImage = document.querySelector('.dh-image img');
 
-        if (dhVocab && dhImage) {
-            var dhVocabHeight = dhVocab.offsetHeight;
+        if (!dhVocab || !dhImage) return;
+
+        // After an image is resized to fit, the vocab height may change due to text wrapping differences.
+        // The image then needs resized again, but the process should stabilize within a couple iterations.
+        let previousHeight = -1;
+        for (let i = 0; i < 3; i++) {
+            const dhVocabHeight = dhVocab.offsetHeight;
+            if (dhVocabHeight === previousHeight) break;
+
+            previousHeight = dhVocabHeight
             dhImage.style.maxHeight = `${dhVocabHeight}px`;
-            defHeader.style.maxHeight = `${dhVocabHeight}px`;
         }
     }
 
