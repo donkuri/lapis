@@ -51,7 +51,7 @@
 
   --mobile-main-picture-position: "right"; /* "left", "right", "alt" */
   --mobile-sentence-position: "below";
-  --mobile-audio-buttons: "fixed"; /* "fixed", "header", "alt" */
+  --mobile-audio-buttons: "header"; /* "fixed", "header", "alt" */
 
   /* Pitch colors */
   --dark-mode-heiban: #39bae6;
