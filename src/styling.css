@@ -237,6 +237,10 @@ html.mobile {
   text-align: center;
 }
 
+html.mobile #lapis {
+  min-height: -webkit-fill-available;
+}
+
 /* ------- Mobile css ------- */
 @media (max-width: 512px) {
   .images-container {
