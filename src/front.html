@@ -69,6 +69,10 @@
       if ((event.key === "c") | (event.key === "C")) toggleContent();
     });
   }
+  var userJs1 = function() {
+    const el = document.getElementById("click");
+    if (el) el.click();
+  };
 
   function HideTargetWord() {
     const targetWords = document.querySelectorAll("#audio b");
